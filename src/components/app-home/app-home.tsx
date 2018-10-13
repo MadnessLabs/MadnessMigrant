@@ -9,50 +9,62 @@ import { ConfigService } from '../../services/config';
 export class AppHome {
   actionOptions: any;
 
+  submitElementId = 'submit-button';
+
   @Element() appHomeEl: HTMLAppHomeElement;
 
   @Prop() auth: AuthService;
   @Prop() config: ConfigService;
-  @Prop() viewType: any;
+  @State() viewType: any;
   @State() emailAddress: string;
   @State() emailInputEl: HTMLInputElement;
   @State() phoneNumber: any;
   @State() phoneInputEl: HTMLInputElement;
+  @State() submitButtonEl: any;
 
   public componentWillLoad() {
 // maybe
-this.actionOptions = {
-  url: 'www.google.com',
-  iOS: {
-    bundleId: 'net.madnessenjin.madnessMigrant'
-  },
-  android: {
-    packageName: 'net.madnessenjin.madnessMigrant',
-    installApp: false,
-    minimumVersion: '12'
-  },
-  handleCodeInApp: true
-};
+    this.actionOptions = {
+      url: 'www.google.com',
+      iOS: {
+        bundleId: 'net.madnessenjin.madnessMigrant'
+      },
+      android: {
+        packageName: 'net.madnessenjin.madnessMigrant',
+        installApp: false,
+        minimumVersion: '12'
+      },
+      handleCodeInApp: true
+    };
   }  
+  componentDidLoad() {
+    this.submitButtonEl = this.appHomeEl.querySelector(
+      '#' + this.submitElementId
+    );    
+    this.emailInputEl = this.appHomeEl.querySelector('#email-login input');
+    this.phoneInputEl = this.appHomeEl.querySelector('#phone-login input');
+    setTimeout(() => {
+      // this.auth.createCaptcha(this.submitElementId, 'cat');
+    }, 300);    
+  }
 
   phoneAuth() {
     this.phoneNumber = this.phoneInputEl.value;
     this.phoneNumber = '+1' + this.phoneNumber;
-    // const formattedNum = this.phoneNumber.replace(/(\-|\(|\)|\s)/g, '');
+    const formattedNum = this.phoneNumber.replace(/(\-|\(|\)|\s)/g, '');
 
     this.auth
-      // .withPhoneNumber(formattedNum, window.RecaptchaVerifier)
-      // .then(confirmationResult => {
-        // console.log(confirmationResult);
-        
+// window.RecaptchaVerifier
+      .withPhoneNumber(formattedNum, 'asdf')
+      .then(confirmationResult => {
         // this.phoneConfirmResult = confirmationResult;
 
-        // return confirmationResult;
-      // })
-      // .catch(error => {
+        return confirmationResult;
+      })
+      .catch(error => {
         // Error;SMS not sent
-      //   console.log(error);
-      // });
+        console.log(error);
+      });
     // .then(() => {
     //   this.hasContinued = true;
     // })
@@ -90,11 +102,21 @@ this.actionOptions = {
       });
   }    
 
-  loginUser(event, viewType) {
+  loginType(event, viewType) {
     event.preventDefault();
     console.log(viewType);
     
     this.viewType = viewType;
+    console.log(this.viewType);
+  }
+
+  loginUser(event) {
+    
+    event.preventDefault();
+
+    console.log(this.viewType);
+    
+    
     if (this.viewType === 'email') {
       this.emailAuth();
     } else if (this.viewType === 'phone') {
@@ -114,18 +136,27 @@ this.actionOptions = {
       </ion-header>,
 
       <ion-content >
+        <form>
         <div class="facebook">
-          <ion-button onClick={(event) => this.loginUser(event, 'facebook' )} >Facebook</ion-button>
+        <ion-icon name="logo-facebook"  onClick={(event) => this.loginType(event, 'google')}></ion-icon>
         </div>        
         <div class="phone">
-          <ion-button onClick={(event) => this.loginUser(event, 'phone')}>Phone</ion-button>
+          <ion-item id="phone-login">
+            <ion-label color="primary" >phone</ion-label>
+            <ion-input placeholder="Text Input"></ion-input>
+          </ion-item>        
         </div>        
         <div class="google">
-          <ion-button onClick={(event) => this.loginUser(event, 'googe')}>Google</ion-button>
+        <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'google')}></ion-icon>
         </div>        
           <div class="email">
-          <ion-button onClick={(event) => this.loginUser(event, 'email')}>Email</ion-button>
+          <ion-item>
+            <ion-label color="primary">Email</ion-label>
+            <ion-input placeholder="Text Input"></ion-input>
+          </ion-item>
         </div>
+        <ion-button type="submit"  onClick={(event) => this.loginUser(event)}>Submit</ion-button>
+        </form>
       </ion-content>
     ];
   }

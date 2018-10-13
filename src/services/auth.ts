@@ -7,7 +7,6 @@ export class AuthService {
   constructor(
     config?: any
   ) {
-    // this.user = afAuth.authState;
     let firstRun = false;
     if (firebase.apps.length === 0) {
       firebase.initializeApp(config);
@@ -220,6 +219,8 @@ export class AuthService {
             });
         }
       } else {
+        console.log(network);
+        
         if (network === 'facebook') {
           provider = new firebase.auth.FacebookAuthProvider();
         } else if (network === 'google') {
