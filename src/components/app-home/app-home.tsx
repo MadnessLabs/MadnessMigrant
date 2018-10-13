@@ -120,7 +120,7 @@ this.actionOptions = {
           <ion-button onClick={(event) => this.loginUser(event, 'phone')}>Phone</ion-button>
         </div>        
         <div class="google">
-          <ion-buton onClick={(event) => this.loginUser(event, 'googe')}>Google</ion-buton>
+          <ion-button onClick={(event) => this.loginUser(event, 'googe')}>Google</ion-button>
         </div>        
           <div class="email">
           <ion-button onClick={(event) => this.loginUser(event, 'email')}>Email</ion-button>

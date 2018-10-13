@@ -1,10 +1,7 @@
-/**
- * @module Services
- */
 import config from '../global/environment';
 
 export class ConfigService {
-  public get(name: string) {
-    return config[name];
+  public get(name?: string) {
+    return name ? config[name] : config;
   }
 }

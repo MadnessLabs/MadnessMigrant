@@ -1,21 +1,10 @@
-/**
- * @module Services
- */
-// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-// import { TwitterConnect } from '@ionic-native/twitter-connect';
-// import { GooglePlus } from '@ionic-native/google-plus';
-
 import firebase from 'firebase/app';
 import 'firebase/auth';
 export class AuthService {
-  // public service: firebase.auth.Auth;
   public service: firebase.auth.Auth;
   public session: any;
 
   constructor(
-    // private facebook: Facebook,
-    // private twitter: TwitterConnect
-    // private googlePlus: GooglePlus,
     config?: any
   ) {
     // this.user = afAuth.authState;
@@ -97,7 +86,6 @@ export class AuthService {
       ) {
         return false;
       }
-      console.log('session - ', session);
       if (session) {
         localStorage.setItem('raf:session', JSON.stringify(session));
       }
@@ -183,24 +171,6 @@ export class AuthService {
     });
   }
 
-  // facebookNative(): Promise<any> {
-  //     return new Promise((resolve, reject) => {
-  //         if (this.platform.is('cordova')) {
-  //             this.facebook.login(['email', 'public_profile', 'user_friends'])
-  //                 .then((facebookData: FacebookLoginResponse) => {
-  //                     const credential = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
-  //                     firebase.auth().signInWithCredential(credential).then((firebaseData) => {
-  //                         resolve(firebaseData);
-  //                     });
-  //                 }, (error) => {
-  //                     reject(error);
-  //                 });
-  //         } else {
-  //             reject({ message: 'This platform does not support native login.' });
-  //         }
-  //     });
-  // }
-
   googleNative(): Promise<any> {
     return new Promise((resolve, reject) => {
       (<any>window).plugins.googleplus.login(
@@ -228,7 +198,6 @@ export class AuthService {
   }
 
   withSocial(network: string, redirect = false): Promise<any> {
-  
     let provider;
     let shouldRedirect = redirect;
     if (window.matchMedia('(display-mode: standalone)').matches) {
