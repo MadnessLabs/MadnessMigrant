@@ -1,5 +1,7 @@
 import { Component, Prop, Listen, State } from '@stencil/core';
+
 import { AuthService } from '../../services/auth';
+import { ConfigService } from '../../services/config';
 
 @Component({
   tag: 'app-root',
@@ -18,10 +20,15 @@ export class AppRoot {
    * so that the new service worker can take over
    * and serve the fresh content
    */
+
+  // why all the publics here???
   @State() public auth: AuthService;
+  @State() public config: ConfigService;
   public defaultProps: {
     auth: AuthService;
+    config: ConfigService;
   }
+
   @Listen('window:swUpdate')
   async onSWUpdate() {
     const toast = await this.toastCtrl.create({
@@ -34,12 +41,25 @@ export class AppRoot {
     window.location.reload();
   }
 
+  public componentWillLoad() {
+    this.config = new ConfigService();
+    this.auth = new AuthService(this.config.get('firebase'));
+    this.defaultProps = {
+      config: this.config,
+      auth: this.auth,
+    };
+
+  }
+
   render() {
     return (
       <ion-app>
         <ion-router useHash={false}>
-          <ion-route url="/" component="app-home" componentProps={this.defaultProps} />
-          <ion-route url="/profile/:name" component="app-profile" />
+          <ion-route url="/" 
+          component="app-home" 
+          componentProps={this.defaultProps}
+          />
+          {/* <ion-route url="/profile/:name" component="app-profile" /> */}
         </ion-router>
         <ion-nav />
       </ion-app>
