@@ -80,6 +80,11 @@ export class AppRoot {
             component="app-privacy"
             componentProps={this.defaultProps}
           />
+          <ion-route
+            url="/profile"
+            component="app-profile"
+            componentProps={this.defaultProps}
+          />
         </ion-router>
         <ion-nav />
       </ion-app>
