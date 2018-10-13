@@ -2,39 +2,54 @@ import { Component, Element, Prop, State } from '@stencil/core';
 import { AuthService } from '../../services/auth';
 import { ConfigService } from '../../services/config';
 
+import { LanguageService } from '../../services/language';
 @Component({
   tag: 'app-home',
   styleUrl: 'app-home.css'
 })
 export class AppHome {
-  actionOptions: any;
-
-  @Element() appHomeEl: HTMLAppHomeElement;
-
+  actionOptions = {
+    url: 'www.google.com',
+    iOS: {
+      bundleId: 'net.madnessenjin.madnessMigrant'
+    },
+    android: {
+      packageName: 'net.madnessenjin.madnessMigrant',
+      installApp: false,
+      minimumVersion: '12'
+    },
+    handleCodeInApp: true
+  };
+  @Element() appHomeEl: HTMLElement;
+  
+  @Prop()
+  language: LanguageService;
   @Prop() auth: AuthService;
   @Prop() config: ConfigService;
   @Prop() viewType: any;
+
   @State() emailAddress: string;
   @State() emailInputEl: HTMLInputElement;
   @State() phoneNumber: any;
   @State() phoneInputEl: HTMLInputElement;
+  @State() introText: string;
 
-  public componentWillLoad() {
-// maybe
-this.actionOptions = {
-  url: 'www.google.com',
-  iOS: {
-    bundleId: 'net.madnessenjin.madnessMigrant'
-  },
-  android: {
-    packageName: 'net.madnessenjin.madnessMigrant',
-    installApp: false,
-    minimumVersion: '12'
-  },
-  handleCodeInApp: true
-};
-  }  
+  componentDidLoad() {
+    this.getVerbiage();  
+  }
 
+  async getVerbiage() {
+    this.introText = await this.language.get('introText');
+  }
+
+  async setLanguage(language: string) {
+    await this.language.setLanguage(language);
+    await this.getVerbiage();
+  }
+  public get value() : string {
+    return 
+  }
+  
   phoneAuth() {
     this.phoneNumber = this.phoneInputEl.value;
     this.phoneNumber = '+1' + this.phoneNumber;
@@ -108,11 +123,13 @@ this.actionOptions = {
     return [
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Home</ion-title>
+          <ion-title>Madness Migrant</ion-title>
         </ion-toolbar>
       </ion-header>,
 
       <ion-content >
+        <p>{this.introText}</p>
+        <ion-button expand="block" onClick={() => this.setLanguage('es')}>Set to Spanish</ion-button>
         <div class="facebook">
           <ion-button onClick={(event) => this.loginUser(event, 'facebook' )} >Facebook</ion-button>
         </div>        
