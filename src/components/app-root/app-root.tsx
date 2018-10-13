@@ -1,4 +1,5 @@
-import { Component, Prop, Listen } from '@stencil/core';
+import { Component, Prop, Listen, State } from '@stencil/core';
+import { AuthService } from '../../services/auth';
 
 @Component({
   tag: 'app-root',
@@ -17,6 +18,10 @@ export class AppRoot {
    * so that the new service worker can take over
    * and serve the fresh content
    */
+  @State() public auth: AuthService;
+  public defaultProps: {
+    auth: AuthService;
+  }
   @Listen('window:swUpdate')
   async onSWUpdate() {
     const toast = await this.toastCtrl.create({
@@ -33,7 +38,7 @@ export class AppRoot {
     return (
       <ion-app>
         <ion-router useHash={false}>
-          <ion-route url="/" component="app-home" />
+          <ion-route url="/" component="app-home" componentProps={this.defaultProps} />
           <ion-route url="/profile/:name" component="app-profile" />
         </ion-router>
         <ion-nav />
