@@ -11,31 +11,31 @@ export class AppPrivacy {
 
   @State()
   privacy: {
-    title: string;
-    introOne: string;
-    introTwo: string;
-    whatWeCollectTitle: string;
-    whatWeCollectSubtext: string;
-    whatWeCollectBulletOne: string;
-    whatWeCollectBulletTwo: string;
-    whatWeCollectBulletThree: string;
-    whatWeCollectBulletFour: string;
-    whyWeCollectTitle: string;
-    whyWeCollectSubtext: string;
-    whyWeCollectBulletOne: string;
-    whyWeCollectBulletTwo: string;
-    whyWeCollectBulletThree: string;
-    whyWeCollectBulletFour: string;
-    whyWeCollectBulletFive: string;
-    safeguardTitle: string;
-    safegaurdSubtext: string;
-    cookieTitle: string;
-    cookieSubtext: string;
-    linksTitle: string;
-    linksSubtext: string;
-    restrictingTitle: string;
-    restrictingSubtext: string;
-  };
+    title?: string;
+    introOne?: string;
+    introTwo?: string;
+    whatWeCollectTitle?: string;
+    whatWeCollectSubtext?: string;
+    whatWeCollectBulletOne?: string;
+    whatWeCollectBulletTwo?: string;
+    whatWeCollectBulletThree?: string;
+    whatWeCollectBulletFour?: string;
+    whyWeCollectTitle?: string;
+    whyWeCollectSubtext?: string;
+    whyWeCollectBulletOne?: string;
+    whyWeCollectBulletTwo?: string;
+    whyWeCollectBulletThree?: string;
+    whyWeCollectBulletFour?: string;
+    whyWeCollectBulletFive?: string;
+    safeguardTitle?: string;
+    safegaurdSubtext?: string;
+    cookieTitle?: string;
+    cookieSubtext?: string;
+    linksTitle?: string;
+    linksSubtext?: string;
+    restrictingTitle?: string;
+    restrictingSubtext?: string;
+  } = {};
 
   async componentDidLoad() {
     this.privacy = await this.language.get('privacy');
