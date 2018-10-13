@@ -1,3 +1,8 @@
-migrant-text-to-speech {
-    /* Component styles go here */
+.text-wrapper {
+  position: relative;
+}
+ion-button {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
