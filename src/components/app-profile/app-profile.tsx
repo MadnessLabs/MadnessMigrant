@@ -1,5 +1,4 @@
 import { Component, Prop, State } from '@stencil/core';
-import { sayHello } from '../../helpers/utils';
 
 @Component({
   tag: 'app-profile',
@@ -8,13 +7,6 @@ import { sayHello } from '../../helpers/utils';
 export class AppProfile {
   @State() state = false;
   @Prop() name: string;
-
-  formattedName(): string {
-    if (this.name) {
-      return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
-    }
-    return '';
-  }
 
   render() {
     return [
@@ -28,11 +20,6 @@ export class AppProfile {
       </ion-header>,
 
       <ion-content padding>
-        <p>
-          {sayHello()}! My name is {this.formattedName()}. My name was passed in through a
-          route param!
-        </p>
-
         <ion-item>
           <ion-label>Setting ({this.state.toString()})</ion-label>
           <ion-toggle
