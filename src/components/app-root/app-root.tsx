@@ -1,33 +1,29 @@
-import { Component, Prop, Listen, State } from '@stencil/core';
+import { Component, Prop, Listen } from '@stencil/core';
 
 import { AuthService } from '../../services/auth';
 import { ConfigService } from '../../services/config';
+import { LanguageService } from '../../services/language';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.css'
 })
 export class AppRoot {
-  
-  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: HTMLIonToastControllerElement;
-
-  /**
-   * Handle service worker updates correctly.
-   * This code will show a toast letting the
-   * user of the PWA know that there is a
-   * new version available. When they click the
-   * reload button it then reloads the page
-   * so that the new service worker can take over
-   * and serve the fresh content
-   */
-
-  // why all the publics here???
-  @State() public auth: AuthService;
-  @State() public config: ConfigService;
-  public defaultProps: {
+  auth: AuthService;
+  config: ConfigService;
+  db: firebase.firestore.Firestore;
+  defaultProps: {
     auth: AuthService;
     config: ConfigService;
+    db: firebase.firestore.Firestore;
+    language: LanguageService;
   }
+  language: LanguageService;
+
+  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: HTMLIonToastControllerElement;  
 
   @Listen('window:swUpdate')
   async onSWUpdate() {
@@ -44,11 +40,18 @@ export class AppRoot {
   public componentWillLoad() {
     this.config = new ConfigService();
     this.auth = new AuthService(this.config.get('firebase'));
+    this.db = firebase.firestore();
+    this.db.settings({
+      timestampsInSnapshots: true
+    });
+    this.language = new LanguageService(this.db);
+
     this.defaultProps = {
       config: this.config,
       auth: this.auth,
+      db: this.db,
+      language: this.language
     };
-
   }
 
   render() {

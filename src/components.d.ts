@@ -9,12 +9,19 @@ import '@stencil/core';
 
 import '@ionic/core';
 import 'ionicons';
+import {
+  LanguageService,
+} from './services/language';
 
 
 export namespace Components {
 
-  interface AppHome {}
-  interface AppHomeAttributes extends StencilHTMLAttributes {}
+  interface AppHome {
+    'language': LanguageService;
+  }
+  interface AppHomeAttributes extends StencilHTMLAttributes {
+    'language'?: LanguageService;
+  }
 
   interface AppProfile {
     'name': string;
