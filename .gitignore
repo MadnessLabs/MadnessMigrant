@@ -26,4 +26,4 @@ UserInterfaceState.xcuserstate
 .env
 functions/lib
 .firebase/
-src/global.environment.ts
+src/global/environment.ts
