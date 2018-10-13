@@ -24,6 +24,7 @@ export class AppHome {
 
   public componentWillLoad() {
 // maybe
+this.auth.createCaptcha(this.submitElementId);
     this.actionOptions = {
       url: 'www.google.com',
       iOS: {
@@ -43,21 +44,23 @@ export class AppHome {
     );    
     this.emailInputEl = this.appHomeEl.querySelector('#email-login input');
     this.phoneInputEl = this.appHomeEl.querySelector('#phone-login input');
-    setTimeout(() => {
-      // this.auth.createCaptcha(this.submitElementId, 'cat');
-    }, 300);    
+    // setTimeout(() => {
+
+    // }, 600);    
   }
 
   phoneAuth() {
+
     this.phoneNumber = this.phoneInputEl.value;
     this.phoneNumber = '+1' + this.phoneNumber;
     const formattedNum = this.phoneNumber.replace(/(\-|\(|\)|\s)/g, '');
 
     this.auth
-// window.RecaptchaVerifier
-      .withPhoneNumber(formattedNum, 'asdf')
+      .withPhoneNumber(formattedNum, window.RecaptchaVerifier)
       .then(confirmationResult => {
         // this.phoneConfirmResult = confirmationResult;
+        console.log(confirmationResult);
+        
 
         return confirmationResult;
       })
@@ -120,6 +123,7 @@ export class AppHome {
     if (this.viewType === 'email') {
       this.emailAuth();
     } else if (this.viewType === 'phone') {
+      
       this.phoneAuth();  
     } else {
       this.socialAuth();
@@ -136,27 +140,31 @@ export class AppHome {
       </ion-header>,
 
       <ion-content >
-        <form>
+
         <div class="facebook">
-        <ion-icon name="logo-facebook"  onClick={(event) => this.loginType(event, 'google')}></ion-icon>
+        <ion-icon name="logo-facebook"  onClick={(event) => this.loginType(event, 'facebook')}></ion-icon>
         </div>        
         <div class="phone">
           <ion-item id="phone-login">
+          <ion-icon name="phone-portrait" onClick={(event) => this.loginType(event, 'phone')}></ion-icon>          
             <ion-label color="primary" >phone</ion-label>
             <ion-input placeholder="Text Input"></ion-input>
           </ion-item>        
         </div>        
         <div class="google">
-        <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'google')}></ion-icon>
+        <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'mail')}></ion-icon>
         </div>        
           <div class="email">
+          <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'mail')}></ion-icon>          
           <ion-item>
             <ion-label color="primary">Email</ion-label>
             <ion-input placeholder="Text Input"></ion-input>
           </ion-item>
         </div>
-        <ion-button type="submit"  onClick={(event) => this.loginUser(event)}>Submit</ion-button>
-        </form>
+        <ion-button type="submit"
+        id={this.submitElementId}
+          onClick={(event) => this.loginUser(event)}>Submit</ion-button>
+
       </ion-content>
     ];
   }

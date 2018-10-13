@@ -41,7 +41,9 @@ export class AuthService {
     }
   }
 
-  createCaptcha(buttonEl: HTMLButtonElement, callback: any) {
+  createCaptcha(buttonEl: any) {
+    console.log('inrecaptcah');
+    
     (<any>window).RecaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       buttonEl,
       {
@@ -49,12 +51,12 @@ export class AuthService {
         callback: function() {
           // Captcha Created
           console.log('wee');
-          if (callback && typeof callback === 'function') {
-            callback();
-          }
+          // if (callback && typeof callback === 'function') {
+          //   callback();
+          // }
         }
       }
-    );
+    );    
   }
 
   withPhoneNumber(phoneNumber: string, capId: any) {
