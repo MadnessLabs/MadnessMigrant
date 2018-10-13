@@ -157,7 +157,7 @@ export class AppHome {
   render() {
     return [
       <ion-header>
-        <ion-toolbar color="primary">
+        <ion-toolbar color="secondary">
           <ion-title>Madness Migrant</ion-title>
         </ion-toolbar>
       </ion-header>,
@@ -223,7 +223,7 @@ export class AppHome {
               <ion-grid>
                 <ion-row>
                   <ion-col>
-                    <div class="phone">
+                    {/* <div class="phone">
                       <ion-item id="phone-login">
                         <ion-icon
                           name="phone-portrait"
@@ -232,7 +232,7 @@ export class AppHome {
                         <ion-label color="primary">phone</ion-label>
                         <ion-input placeholder="Text Input" name="phone" />
                       </ion-item>
-                    </div>
+                    </div> */}
                     <div class="email">
                       <ion-icon
                         name="mail"
