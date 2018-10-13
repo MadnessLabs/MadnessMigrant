@@ -93,3 +93,18 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+
+ion-content {
+  --background: transparent;
+}
+
+ion-card {
+  --background: rgba(255, 255, 255, 0.9) !important;
+}
+
+ion-nav {
+  background-image: url('/assets/images/sunset.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
