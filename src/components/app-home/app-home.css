@@ -38,3 +38,8 @@ app-home .onboarding-controls ion-button {
   background-color: #fff;
   border-radius: 100%;
 }
+
+app-home ion-card {
+  margin: 0 auto !important;
+  max-width: 500px;
+}
