@@ -42,10 +42,10 @@ export class AppHome {
     this.actionOptions = {
       url: app.url,
       iOS: {
-        bundleId: 'net.madnessenjin.referaflood'
+        bundleId: 'net.madnessenjin.madnessmigrant'
       },
       android: {
-        packageName: 'net.madnessenjin.referaflood',
+        packageName: 'net.madnessenjin.madnessmigrant',
         installApp: false,
         minimumVersion: '12'
       },
