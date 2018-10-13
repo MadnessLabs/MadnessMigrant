@@ -41,14 +41,17 @@ export class AppHome {
   @State()
   phoneNumber: any;
   @State()
-  introText: string;
-  @State()
   viewType: string;
   @State()
   availableLanguages: {
     name: string;
     code: string;
   }[] = [];
+  @State()
+  onboardingText: {
+    continue?: string;
+    setLanguage?: string;
+  } = {};
 
   async componentDidLoad() {
     const app = this.config.get('app');
@@ -71,7 +74,7 @@ export class AppHome {
   }
 
   async getVerbiage() {
-    this.introText = await this.language.get('introText');
+    this.onboardingText = await this.language.get('onboarding');
   }
 
   async setLanguage(language: string) {
@@ -168,23 +171,38 @@ export class AppHome {
             <ion-slide id="language">
               <ion-grid>
                 <ion-row>
+                  <ion-col>
+                    <migrant-text-to-speech>
+                      <h1>{this.onboardingText.setLanguage}</h1>
+                    </migrant-text-to-speech>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
                   {this.availableLanguages.map(language => (
-                    <ion-col>
+                    <ion-col onClick={() => this.setLanguage(language.code)}>
                       <div
-                        class="flag"
+                        class={
+                          this.language.currentLanguage === language.code
+                            ? 'flag active'
+                            : 'flag'
+                        }
                         style={{
                           backgroundImage: `url('./assets/flags/${
                             language.code
                           }.png')`
                         }}
-                      />
+                      >
+                        {this.language.currentLanguage === language.code ? (
+                          <ion-icon name="checkmark-circle" />
+                        ) : null}
+                      </div>
                       <b>{language.name}</b>
                     </ion-col>
                   ))}
                 </ion-row>
                 <ion-row class="onboarding-controls">
                   <ion-col>
-                    <ion-button>Continue</ion-button>
+                    <ion-button>{this.onboardingText.continue}</ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
