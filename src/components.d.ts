@@ -42,6 +42,9 @@ export namespace Components {
 
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
+
+  interface MigrantSkills {}
+  interface MigrantSkillsAttributes extends StencilHTMLAttributes {}
 }
 
 declare global {
@@ -50,6 +53,7 @@ declare global {
     'AppHome': Components.AppHome;
     'AppProfile': Components.AppProfile;
     'AppRoot': Components.AppRoot;
+    'MigrantSkills': Components.MigrantSkills;
   }
 
   interface StencilIntrinsicElements {
@@ -57,6 +61,7 @@ declare global {
     'app-home': Components.AppHomeAttributes;
     'app-profile': Components.AppProfileAttributes;
     'app-root': Components.AppRootAttributes;
+    'migrant-skills': Components.MigrantSkillsAttributes;
   }
 
 
@@ -84,11 +89,18 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
+  interface HTMLMigrantSkillsElement extends Components.MigrantSkills, HTMLStencilElement {}
+  var HTMLMigrantSkillsElement: {
+    prototype: HTMLMigrantSkillsElement;
+    new (): HTMLMigrantSkillsElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-example': HTMLAppExampleElement
     'app-home': HTMLAppHomeElement
     'app-profile': HTMLAppProfileElement
     'app-root': HTMLAppRootElement
+    'migrant-skills': HTMLMigrantSkillsElement
   }
 
   interface ElementTagNameMap {
@@ -96,6 +108,7 @@ declare global {
     'app-home': HTMLAppHomeElement;
     'app-profile': HTMLAppProfileElement;
     'app-root': HTMLAppRootElement;
+    'migrant-skills': HTMLMigrantSkillsElement;
   }
 
 

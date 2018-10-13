@@ -59,6 +59,10 @@ export class AppRoot {
           component="app-home" 
           componentProps={this.defaultProps}
           />
+          <ion-route url="/skills" 
+          component="migrant-skills" 
+          componentProps={this.defaultProps}
+          />          
           {/* <ion-route url="/profile/:name" component="app-profile" /> */}
         </ion-router>
         <ion-nav />
