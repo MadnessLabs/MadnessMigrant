@@ -1,0 +1,19 @@
+app-home .flag {
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+app-home #language ion-grid {
+  width: 100%;
+  display: block;
+}
+
+app-home .onboarding-controls ion-button {
+  float: right;
+}

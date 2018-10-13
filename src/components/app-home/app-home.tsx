@@ -9,6 +9,12 @@ import { LanguageService } from '../../services/language';
 })
 export class AppHome {
   actionOptions: any;
+  sliderOptions: any = {
+    allowTouchMove: false,
+    simulateTouch: false,
+    autoplay: false
+  };
+
   @Element()
   appHomeEl: HTMLElement;
 
@@ -26,6 +32,8 @@ export class AppHome {
   @Prop()
   auth: AuthService;
   @Prop()
+  db: firebase.firestore.FieldValue;
+  @Prop()
   config: ConfigService;
 
   @State()
@@ -36,8 +44,13 @@ export class AppHome {
   introText: string;
   @State()
   viewType: string;
+  @State()
+  availableLanguages: {
+    name: string;
+    code: string;
+  }[] = [];
 
-  componentDidLoad() {
+  async componentDidLoad() {
     const app = this.config.get('app');
     this.actionOptions = {
       url: app.url,
@@ -53,6 +66,8 @@ export class AppHome {
     };
     this.getVerbiage();
     this.auth.createCaptcha(this.appHomeEl.querySelector('#recaptcha'));
+    this.availableLanguages = await this.language.list();
+    console.log(this.availableLanguages);
   }
 
   async getVerbiage() {
@@ -134,62 +149,92 @@ export class AppHome {
         </ion-toolbar>
       </ion-header>,
       <ion-content padding>
-        <migrant-text-to-speech voice={this.language.currentVoice}>
+        {/* <migrant-text-to-speech voice={this.language.currentVoice}>
           <p>{this.introText}</p>
-        </migrant-text-to-speech>
-        <ion-button
-          expand="block"
-          onClick={() =>
-            this.setLanguage(
-              this.language.currentLanguage === 'es' ? 'en' : 'es'
-            )
-          }
-        >
-          Set to{' '}
-          {this.language.currentLanguage === 'en' ? 'Spanish' : 'English'}
-        </ion-button>
-        <div class="facebook">
-          <ion-icon
-            name="logo-facebook"
-            onClick={event => this.loginType(event, 'facebook')}
-          />
-        </div>
-        <div class="phone">
-          <ion-item id="phone-login">
-            <ion-icon
-              name="phone-portrait"
-              onClick={event => this.loginType(event, 'phone')}
-            />
-            <ion-label color="primary">phone</ion-label>
-            <ion-input placeholder="Text Input" name="phone" />
-          </ion-item>
-        </div>
-        <div class="google">
-          <ion-icon
-            name="logo-googleplus"
-            onClick={event => this.loginType(event, 'google')}
-          />
-        </div>
-        <div class="email">
-          <ion-icon
-            name="mail"
-            onClick={event => this.loginType(event, 'email')}
-          />
-          <ion-item id="email-login">
-            <ion-label color="primary">Email</ion-label>
-            <ion-input placeholder="Text Input" name="email" />
-          </ion-item>
-        </div>
-        {this.viewType ? (
+        </migrant-text-to-speech> 
           <ion-button
-            type="submit"
-            id="submit-button"
-            onClick={event => this.loginUser(event)}
+            expand="block"
+            onClick={() =>
+              this.setLanguage(
+                this.language.currentLanguage === 'es' ? 'en' : 'es'
+              )
+            }
           >
-            Submit
-          </ion-button>
-        ) : null}
-        <button id="recaptcha" />
+            Set to{' '}
+            {this.language.currentLanguage === 'en' ? 'Spanish' : 'English'}
+          </ion-button>*/}
+        <ion-card>
+          <ion-slides options={this.sliderOptions}>
+            <ion-slide id="language">
+              <ion-grid>
+                <ion-row>
+                  {this.availableLanguages.map(language => (
+                    <ion-col>
+                      <div
+                        class="flag"
+                        style={{
+                          backgroundImage: `url('./assets/flags/${
+                            language.code
+                          }.png')`
+                        }}
+                      />
+                      <b>{language.name}</b>
+                    </ion-col>
+                  ))}
+                </ion-row>
+                <ion-row class="onboarding-controls">
+                  <ion-col>
+                    <ion-button>Continue</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-slide>
+            <ion-slide>
+              <div class="phone">
+                <ion-item id="phone-login">
+                  <ion-icon
+                    name="phone-portrait"
+                    onClick={event => this.loginType(event, 'phone')}
+                  />
+                  <ion-label color="primary">phone</ion-label>
+                  <ion-input placeholder="Text Input" name="phone" />
+                </ion-item>
+              </div>
+              <div class="email">
+                <ion-icon
+                  name="mail"
+                  onClick={event => this.loginType(event, 'email')}
+                />
+                <ion-item id="email-login">
+                  <ion-label color="primary">Email</ion-label>
+                  <ion-input placeholder="Text Input" name="email" />
+                </ion-item>
+              </div>
+              <div class="facebook">
+                <ion-icon
+                  name="logo-facebook"
+                  onClick={event => this.loginType(event, 'facebook')}
+                />
+              </div>
+              <div class="google">
+                <ion-icon
+                  name="logo-googleplus"
+                  onClick={event => this.loginType(event, 'google')}
+                />
+              </div>
+              {this.viewType ? (
+                <ion-button
+                  type="submit"
+                  id="submit-button"
+                  onClick={event => this.loginUser(event)}
+                >
+                  Submit
+                </ion-button>
+              ) : null}
+              <button id="recaptcha" />
+            </ion-slide>
+          </ion-slides>
+        </ion-card>
       </ion-content>
     ];
   }
