@@ -44,7 +44,9 @@ export namespace Components {
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
   interface MigrantSkills {}
-  interface MigrantSkillsAttributes extends StencilHTMLAttributes {}
+  interface MigrantSkillsAttributes extends StencilHTMLAttributes {
+    'onMigrantSkillsEvent'?: (event: CustomEvent) => void;
+  }
 }
 
 declare global {
