@@ -105,6 +105,7 @@ this.actionOptions = {
   }
 
   render() {
+    // new branch
     return [
       <ion-header>
         <ion-toolbar color="primary">
