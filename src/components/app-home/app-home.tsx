@@ -9,6 +9,7 @@ import { LanguageService } from '../../services/language';
 })
 export class AppHome {
   actionOptions: any;
+  sliderEl: HTMLIonSlidesElement;
   sliderOptions: any = {
     allowTouchMove: false,
     simulateTouch: false,
@@ -54,6 +55,7 @@ export class AppHome {
   } = {};
 
   async componentDidLoad() {
+    this.sliderEl = this.appHomeEl.querySelector('ion-slides');
     const app = this.config.get('app');
     this.actionOptions = {
       url: app.url,
@@ -144,6 +146,14 @@ export class AppHome {
     }
   }
 
+  slideNext() {
+    this.sliderEl.slideNext();
+  }
+
+  slidePrev() {
+    this.sliderEl.slidePrev();
+  }
+
   render() {
     return [
       <ion-header>
@@ -202,54 +212,72 @@ export class AppHome {
                 </ion-row>
                 <ion-row class="onboarding-controls">
                   <ion-col>
-                    <ion-button>{this.onboardingText.continue}</ion-button>
+                    <ion-button onClick={() => this.slideNext()}>
+                      {this.onboardingText.continue}
+                    </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-slide>
             <ion-slide>
-              <div class="phone">
-                <ion-item id="phone-login">
-                  <ion-icon
-                    name="phone-portrait"
-                    onClick={event => this.loginType(event, 'phone')}
-                  />
-                  <ion-label color="primary">phone</ion-label>
-                  <ion-input placeholder="Text Input" name="phone" />
-                </ion-item>
-              </div>
-              <div class="email">
-                <ion-icon
-                  name="mail"
-                  onClick={event => this.loginType(event, 'email')}
-                />
-                <ion-item id="email-login">
-                  <ion-label color="primary">Email</ion-label>
-                  <ion-input placeholder="Text Input" name="email" />
-                </ion-item>
-              </div>
-              <div class="facebook">
-                <ion-icon
-                  name="logo-facebook"
-                  onClick={event => this.loginType(event, 'facebook')}
-                />
-              </div>
-              <div class="google">
-                <ion-icon
-                  name="logo-googleplus"
-                  onClick={event => this.loginType(event, 'google')}
-                />
-              </div>
-              {this.viewType ? (
-                <ion-button
-                  type="submit"
-                  id="submit-button"
-                  onClick={event => this.loginUser(event)}
-                >
-                  Submit
-                </ion-button>
-              ) : null}
-              <button id="recaptcha" />
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <div class="phone">
+                      <ion-item id="phone-login">
+                        <ion-icon
+                          name="phone-portrait"
+                          onClick={event => this.loginType(event, 'phone')}
+                        />
+                        <ion-label color="primary">phone</ion-label>
+                        <ion-input placeholder="Text Input" name="phone" />
+                      </ion-item>
+                    </div>
+                    <div class="email">
+                      <ion-icon
+                        name="mail"
+                        onClick={event => this.loginType(event, 'email')}
+                      />
+                      <ion-item id="email-login">
+                        <ion-label color="primary">Email</ion-label>
+                        <ion-input placeholder="Text Input" name="email" />
+                      </ion-item>
+                    </div>
+                    <div class="facebook">
+                      <ion-icon
+                        name="logo-facebook"
+                        onClick={event => this.loginType(event, 'facebook')}
+                      />
+                    </div>
+                    <div class="google">
+                      <ion-icon
+                        name="logo-googleplus"
+                        onClick={event => this.loginType(event, 'google')}
+                      />
+                    </div>
+                    {this.viewType ? (
+                      <ion-button
+                        type="submit"
+                        id="submit-button"
+                        onClick={event => this.loginUser(event)}
+                      >
+                        Submit
+                      </ion-button>
+                    ) : null}
+                    <button id="recaptcha" />
+                  </ion-col>
+                </ion-row>
+                <ion-row class="onboarding-controls">
+                  <ion-col>
+                    <ion-button onClick={() => this.slideNext()}>
+                      {this.onboardingText.continue}
+                    </ion-button>
+                    <ion-button onClick={() => this.slideNext()}>
+                      {this.onboardingText.continue}
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-slide>
           </ion-slides>
         </ion-card>
