@@ -18,7 +18,7 @@
 
   <meta http-equiv="x-ua-compatible" content="IE=Edge">
 
-  <link href="/build/app.css" rel="stylesheet"> 
+  <link href="/build/app.css" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
   <script>
     // Initialize Firebase
@@ -31,7 +31,9 @@
       messagingSenderId: "540849659656"
     };
     firebase.initializeApp(config);
+    firebase.auth().useDeviceLanguage();
   </script>
+  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
   <script src="/build/app.js"></script>
 
 

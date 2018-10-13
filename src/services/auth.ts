@@ -4,10 +4,7 @@ export class AuthService {
   public service: firebase.auth.Auth;
   public session: any;
 
-  constructor(
-    config?: any
-  ) {
-    // this.user = afAuth.authState;
+  constructor(config?: any) {
     let firstRun = false;
     if (firebase.apps.length === 0) {
       firebase.initializeApp(config);
@@ -42,7 +39,9 @@ export class AuthService {
     }
   }
 
-  createCaptcha(buttonEl: HTMLButtonElement, callback: any) {
+  createCaptcha(buttonEl: any) {
+    console.log('inrecaptcah');
+
     (<any>window).RecaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       buttonEl,
       {
@@ -50,9 +49,9 @@ export class AuthService {
         callback: function() {
           // Captcha Created
           console.log('wee');
-          if (callback && typeof callback === 'function') {
-            callback();
-          }
+          // if (callback && typeof callback === 'function') {
+          //   callback();
+          // }
         }
       }
     );
@@ -220,6 +219,8 @@ export class AuthService {
             });
         }
       } else {
+        console.log(network);
+
         if (network === 'facebook') {
           provider = new firebase.auth.FacebookAuthProvider();
         } else if (network === 'google') {

@@ -27,3 +27,4 @@ UserInterfaceState.xcuserstate
 functions/lib
 .firebase/
 src/global/environment.ts
+src/components.d.ts
