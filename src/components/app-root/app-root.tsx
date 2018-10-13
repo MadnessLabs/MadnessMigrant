@@ -6,7 +6,6 @@ import { LanguageService } from '../../services/language';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.css'
@@ -20,10 +19,11 @@ export class AppRoot {
     config: ConfigService;
     db: firebase.firestore.Firestore;
     language: LanguageService;
-  }
+  };
   language: LanguageService;
 
-  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: HTMLIonToastControllerElement;  
+  @Prop({ connect: 'ion-toast-controller' })
+  toastCtrl: HTMLIonToastControllerElement;
 
   @Listen('window:swUpdate')
   async onSWUpdate() {
@@ -58,11 +58,16 @@ export class AppRoot {
     return (
       <ion-app>
         <ion-router useHash={false}>
-          <ion-route url="/" 
-          component="app-home" 
-          componentProps={this.defaultProps}
+          <ion-route
+            url="/"
+            component="app-home"
+            componentProps={this.defaultProps}
           />
-          {/* <ion-route url="/profile/:name" component="app-profile" /> */}
+          <ion-route
+            url="/privacy"
+            component="app-privacy"
+            componentProps={this.defaultProps}
+          />
         </ion-router>
         <ion-nav />
       </ion-app>
