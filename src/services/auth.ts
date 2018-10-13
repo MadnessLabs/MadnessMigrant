@@ -227,42 +227,8 @@ export class AuthService {
     });
   }
 
-  // twitterNative(): Promise<any> {
-  //     return new Promise((resolve, reject) => {
-  //         this.twitter.login().then((twitterData) => {
-  //             const credential = firebase.auth.TwitterAuthProvider.credential(twitterData.token, twitterData.secret);
-  //             firebase.auth().signInWithCredential(credential).then((firebaseData) => {
-  //                 resolve(firebaseData);
-  //             });
-  //         }, (error) => {
-  //             reject(error);
-  //         });
-  //     });
-  // }
-
   withSocial(network: string, redirect = false): Promise<any> {
-    // let provider;
-    // return new Promise((resolve, reject) => {
-    //     if (this.platform.is('cordova')) {
-    //         if (network === 'facebook') {
-    //             this.facebookNative().then((result) => {
-    //                 resolve(result);
-    //             });
-    //         } else if (network === 'google') {
-    //             this.googleNative().then((result) => {
-    //                 resolve(result);
-    //             });
-    //         } else if (network === 'twitter') {
-    //             this.twitterNative().then((result) => {
-    //                 resolve(result);
-    //             });
-    //         } else {
-    //             reject({ message: 'A social network is required or the one provided is not yet supported.' });
-    //         }
-    //     } else {
-
-    //     }
-    // });
+  
     let provider;
     let shouldRedirect = redirect;
     if (window.matchMedia('(display-mode: standalone)').matches) {

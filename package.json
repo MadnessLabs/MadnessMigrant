@@ -17,6 +17,7 @@
   "dependencies": {
     "@ionic/core": "4.0.0-beta.12",
     "@stencil/core": "0.13.2",
-    "firebase": "^5.5.4"
+    "firebase": "^5.5.4",
+    "madnessenjin": "^1.1.13"
   }
 }
