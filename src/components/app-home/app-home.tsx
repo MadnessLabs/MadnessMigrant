@@ -80,12 +80,6 @@ export class AppHome {
         // Error;SMS not sent
         console.log(error);
       });
-    // .then(() => {
-    //   this.hasContinued = true;
-    // })
-    // .catch(error => {
-    //   this.error = error.message;
-    // });
 
     return false;
   }
