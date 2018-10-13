@@ -158,6 +158,9 @@ export class AppHome {
     return [
       <ion-header>
         <ion-toolbar color="secondary">
+          <ion-buttons slot="start">
+            <img src="/assets/icon/icon.png" height="35" width="35" />
+          </ion-buttons>
           <ion-title>Madness Migrant</ion-title>
         </ion-toolbar>
       </ion-header>,
