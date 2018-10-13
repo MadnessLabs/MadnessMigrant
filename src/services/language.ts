@@ -3,12 +3,11 @@ import 'firebase/firestore';
 
 export class LanguageService {
   currentLanguage = 'en';
+  currentVoice = 'UK English Male';
   collectionName = 'languages';
   db: firebase.firestore.Firestore;
 
-  constructor(
-    db: firebase.firestore.Firestore
-  ) {
+  constructor(db: firebase.firestore.Firestore) {
     this.db = db;
   }
 
@@ -18,9 +17,20 @@ export class LanguageService {
    * @param language The language document to grab
    */
   async get(name: string, language?: string) {
-    const languageDocRef = await this.db.collection(this.collectionName).doc(language ? language : this.currentLanguage).get();
-    
+    const languageDocRef = await this.db
+      .collection(this.collectionName)
+      .doc(language ? language : this.currentLanguage)
+      .get();
+
     return languageDocRef.data()[name];
+  }
+
+  /**
+   * Get the voice to set for speech synthesis
+   * @param language The language document to grab
+   */
+  async getVoice(language?: string) {
+    return await this.get('voice', language ? language : this.currentLanguage);
   }
 
   /**
@@ -29,8 +39,8 @@ export class LanguageService {
    */
   async setLanguage(language: string) {
     this.currentLanguage = language;
+    this.currentVoice = await this.getVoice();
 
     return true;
   }
-
 }

@@ -37,7 +37,7 @@ export class AppRoot {
     window.location.reload();
   }
 
-  public componentWillLoad() {
+  async componentWillLoad() {
     this.config = new ConfigService();
     this.auth = new AuthService(this.config.get('firebase'));
     this.db = firebase.firestore();

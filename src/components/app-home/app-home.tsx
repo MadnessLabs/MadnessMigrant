@@ -20,22 +20,31 @@ export class AppHome {
     },
     handleCodeInApp: true
   };
-  @Element() appHomeEl: HTMLElement;
-  
+  @Element()
+  appHomeEl: HTMLElement;
+
   @Prop()
   language: LanguageService;
-  @Prop() auth: AuthService;
-  @Prop() config: ConfigService;
-  @Prop() viewType: any;
+  @Prop()
+  auth: AuthService;
+  @Prop()
+  config: ConfigService;
+  @Prop()
+  viewType: any;
 
-  @State() emailAddress: string;
-  @State() emailInputEl: HTMLInputElement;
-  @State() phoneNumber: any;
-  @State() phoneInputEl: HTMLInputElement;
-  @State() introText: string;
+  @State()
+  emailAddress: string;
+  @State()
+  emailInputEl: HTMLInputElement;
+  @State()
+  phoneNumber: any;
+  @State()
+  phoneInputEl: HTMLInputElement;
+  @State()
+  introText: string;
 
   componentDidLoad() {
-    this.getVerbiage();  
+    this.getVerbiage();
   }
 
   async getVerbiage() {
@@ -46,28 +55,28 @@ export class AppHome {
     await this.language.setLanguage(language);
     await this.getVerbiage();
   }
-  public get value() : string {
-    return 
+  public get value(): string {
+    return;
   }
-  
+
   phoneAuth() {
     this.phoneNumber = this.phoneInputEl.value;
     this.phoneNumber = '+1' + this.phoneNumber;
     // const formattedNum = this.phoneNumber.replace(/(\-|\(|\)|\s)/g, '');
 
-    this.auth
-      // .withPhoneNumber(formattedNum, window.RecaptchaVerifier)
-      // .then(confirmationResult => {
-        // console.log(confirmationResult);
-        
-        // this.phoneConfirmResult = confirmationResult;
+    this.auth;
+    // .withPhoneNumber(formattedNum, window.RecaptchaVerifier)
+    // .then(confirmationResult => {
+    // console.log(confirmationResult);
 
-        // return confirmationResult;
-      // })
-      // .catch(error => {
-        // Error;SMS not sent
-      //   console.log(error);
-      // });
+    // this.phoneConfirmResult = confirmationResult;
+
+    // return confirmationResult;
+    // })
+    // .catch(error => {
+    // Error;SMS not sent
+    //   console.log(error);
+    // });
     // .then(() => {
     //   this.hasContinued = true;
     // })
@@ -76,7 +85,7 @@ export class AppHome {
     // });
 
     return false;
-  }  
+  }
 
   emailAuth() {
     this.emailAddress = this.emailInputEl.value;
@@ -87,12 +96,12 @@ export class AppHome {
       })
       .catch(error => {
         console.log(error);
-        
+
         // this.error = error.message;
       });
 
     return false;
-  }  
+  }
 
   socialAuth() {
     this.auth
@@ -103,17 +112,17 @@ export class AppHome {
       .catch(error => {
         console.log(error);
       });
-  }    
+  }
 
   loginUser(event, viewType) {
     event.preventDefault();
     console.log(viewType);
-    
+
     this.viewType = viewType;
     if (this.viewType === 'email') {
       this.emailAuth();
     } else if (this.viewType === 'phone') {
-      this.phoneAuth();  
+      this.phoneAuth();
     } else {
       this.socialAuth();
     }
@@ -127,20 +136,40 @@ export class AppHome {
         </ion-toolbar>
       </ion-header>,
 
-      <ion-content >
-        <p>{this.introText}</p>
-        <ion-button expand="block" onClick={() => this.setLanguage('es')}>Set to Spanish</ion-button>
+      <ion-content>
+        <migrant-text-to-speech voice={this.language.currentVoice}>
+          <p>{this.introText}</p>
+        </migrant-text-to-speech>
+        <ion-button
+          expand="block"
+          onClick={() =>
+            this.setLanguage(
+              this.language.currentLanguage === 'es' ? 'en' : 'es'
+            )
+          }
+        >
+          Set to{' '}
+          {this.language.currentLanguage === 'en' ? 'Spanish' : 'English'}
+        </ion-button>
         <div class="facebook">
-          <ion-button onClick={(event) => this.loginUser(event, 'facebook' )} >Facebook</ion-button>
-        </div>        
+          <ion-button onClick={event => this.loginUser(event, 'facebook')}>
+            Facebook
+          </ion-button>
+        </div>
         <div class="phone">
-          <ion-button onClick={(event) => this.loginUser(event, 'phone')}>Phone</ion-button>
-        </div>        
+          <ion-button onClick={event => this.loginUser(event, 'phone')}>
+            Phone
+          </ion-button>
+        </div>
         <div class="google">
-          <ion-button onClick={(event) => this.loginUser(event, 'googe')}>Google</ion-button>
-        </div>        
-          <div class="email">
-          <ion-button onClick={(event) => this.loginUser(event, 'email')}>Email</ion-button>
+          <ion-button onClick={event => this.loginUser(event, 'googe')}>
+            Google
+          </ion-button>
+        </div>
+        <div class="email">
+          <ion-button onClick={event => this.loginUser(event, 'email')}>
+            Email
+          </ion-button>
         </div>
       </ion-content>
     ];
