@@ -19,6 +19,26 @@ import {
 
 export namespace Components {
 
+  interface AppLogin {
+    'auth': AuthService;
+    'config': ConfigService;
+    'icon': string;
+    'messageFb': string;
+    'messageGoo': string;
+    'messageTwitter': string;
+    'session': RAF.User.ISession;
+  }
+  interface AppLoginAttributes extends StencilHTMLAttributes {
+    'auth'?: AuthService;
+    'config'?: ConfigService;
+    'icon'?: string;
+    'messageFb'?: string;
+    'messageGoo'?: string;
+    'messageTwitter'?: string;
+    'onRafLoginEvent'?: (event: CustomEvent) => void;
+    'session'?: RAF.User.ISession;
+  }
+
   interface AppHome {
     'auth': AuthService;
     'config': ConfigService;
@@ -41,17 +61,25 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'AppLogin': Components.AppLogin;
     'AppHome': Components.AppHome;
     'AppProfile': Components.AppProfile;
     'AppRoot': Components.AppRoot;
   }
 
   interface StencilIntrinsicElements {
+    'app-login': Components.AppLoginAttributes;
     'app-home': Components.AppHomeAttributes;
     'app-profile': Components.AppProfileAttributes;
     'app-root': Components.AppRootAttributes;
   }
 
+
+  interface HTMLAppLoginElement extends Components.AppLogin, HTMLStencilElement {}
+  var HTMLAppLoginElement: {
+    prototype: HTMLAppLoginElement;
+    new (): HTMLAppLoginElement;
+  };
 
   interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
   var HTMLAppHomeElement: {
@@ -72,12 +100,14 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'app-login': HTMLAppLoginElement
     'app-home': HTMLAppHomeElement
     'app-profile': HTMLAppProfileElement
     'app-root': HTMLAppRootElement
   }
 
   interface ElementTagNameMap {
+    'app-login': HTMLAppLoginElement;
     'app-home': HTMLAppHomeElement;
     'app-profile': HTMLAppProfileElement;
     'app-root': HTMLAppRootElement;

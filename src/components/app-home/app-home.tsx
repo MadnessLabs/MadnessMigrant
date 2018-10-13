@@ -15,7 +15,7 @@ export class AppHome {
 
   @Prop() auth: AuthService;
   @Prop() config: ConfigService;
-  @State() viewType: any;
+  @State() viewType: any = false;
   @State() emailAddress: string;
   @State() emailInputEl: HTMLInputElement;
   @State() phoneNumber: any;
@@ -56,7 +56,7 @@ this.auth.createCaptcha(this.submitElementId);
     const formattedNum = this.phoneNumber.replace(/(\-|\(|\)|\s)/g, '');
 
     this.auth
-      .withPhoneNumber(formattedNum, window.RecaptchaVerifier)
+      .withPhoneNumber(formattedNum, (window as any).RecaptchaVerifier)
       .then(confirmationResult => {
         // this.phoneConfirmResult = confirmationResult;
         console.log(confirmationResult);
@@ -155,16 +155,19 @@ this.auth.createCaptcha(this.submitElementId);
         <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'mail')}></ion-icon>
         </div>        
           <div class="email">
-          <ion-icon name="logo-googleplus" onClick={(event) => this.loginType(event, 'mail')}></ion-icon>          
-          <ion-item>
+          <ion-icon name="mail" onClick={(event) => this.loginType(event, 'email')}></ion-icon>          
+          <ion-item id="email-login">
             <ion-label color="primary">Email</ion-label>
             <ion-input placeholder="Text Input"></ion-input>
           </ion-item>
         </div>
+        { this.viewType 
+        ? 
         <ion-button type="submit"
         id={this.submitElementId}
           onClick={(event) => this.loginUser(event)}>Submit</ion-button>
-
+          : null
+        }
       </ion-content>
     ];
   }
