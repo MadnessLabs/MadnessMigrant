@@ -50,34 +50,36 @@ export class AppPrivacy {
         </ion-toolbar>
       </ion-header>,
       <ion-content padding>
-        <h1>{this.privacy.title}</h1>
-        <p>{this.privacy.introOne}</p>
-        <p>{this.privacy.introTwo}</p>
-        <h2>{this.privacy.whatWeCollectTitle}</h2>
-        <p>{this.privacy.whatWeCollectSubtext}</p>
-        <ul>
-          <li>{this.privacy.whatWeCollectBulletOne}</li>
-          <li>{this.privacy.whatWeCollectBulletTwo}</li>
-          <li>{this.privacy.whatWeCollectBulletThree}</li>
-          <li>{this.privacy.whatWeCollectBulletFour}</li>
-        </ul>
-        <h2>{this.privacy.whyWeCollectTitle}</h2>
-        <p>{this.privacy.whyWeCollectSubtext}</p>
-        <ul>
-          <li>{this.privacy.whyWeCollectBulletOne}</li>
-          <li>{this.privacy.whyWeCollectBulletTwo}</li>
-          <li>{this.privacy.whyWeCollectBulletThree}</li>
-          <li>{this.privacy.whyWeCollectBulletFour}</li>
-          <li>{this.privacy.whyWeCollectBulletFive}</li>
-        </ul>
-        <h2>{this.privacy.safeguardTitle}</h2>
-        <p>{this.privacy.safegaurdSubtext}</p>
-        <h2>{this.privacy.cookieTitle}</h2>
-        <p>{this.privacy.cookieSubtext}</p>
-        <h2>{this.privacy.linksTitle}</h2>
-        <p>{this.privacy.linksSubtext}</p>
-        <h2>{this.privacy.restrictingTitle}</h2>
-        <p>{this.privacy.restrictingSubtext}</p>
+        <migrant-text-to-speech voice={this.language.currentVoice}>
+          <h1>{this.privacy.title}</h1>
+          <p>{this.privacy.introOne}</p>
+          <p>{this.privacy.introTwo}</p>
+          <h2>{this.privacy.whatWeCollectTitle}</h2>
+          <p>{this.privacy.whatWeCollectSubtext}</p>
+          <ul>
+            <li>{this.privacy.whatWeCollectBulletOne}</li>
+            <li>{this.privacy.whatWeCollectBulletTwo}</li>
+            <li>{this.privacy.whatWeCollectBulletThree}</li>
+            <li>{this.privacy.whatWeCollectBulletFour}</li>
+          </ul>
+          <h2>{this.privacy.whyWeCollectTitle}</h2>
+          <p>{this.privacy.whyWeCollectSubtext}</p>
+          <ul>
+            <li>{this.privacy.whyWeCollectBulletOne}</li>
+            <li>{this.privacy.whyWeCollectBulletTwo}</li>
+            <li>{this.privacy.whyWeCollectBulletThree}</li>
+            <li>{this.privacy.whyWeCollectBulletFour}</li>
+            <li>{this.privacy.whyWeCollectBulletFive}</li>
+          </ul>
+          <h2>{this.privacy.safeguardTitle}</h2>
+          <p>{this.privacy.safegaurdSubtext}</p>
+          <h2>{this.privacy.cookieTitle}</h2>
+          <p>{this.privacy.cookieSubtext}</p>
+          <h2>{this.privacy.linksTitle}</h2>
+          <p>{this.privacy.linksSubtext}</p>
+          <h2>{this.privacy.restrictingTitle}</h2>
+          <p>{this.privacy.restrictingSubtext}</p>
+        </migrant-text-to-speech>
       </ion-content>
     ];
   }
