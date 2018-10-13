@@ -63,7 +63,11 @@ export class AppRoot {
             component="app-home"
             componentProps={this.defaultProps}
           />
-          {/* <ion-route url="/profile/:name" component="app-profile" /> */}
+          <ion-route
+            url="/privacy"
+            component="app-privacy"
+            componentProps={this.defaultProps}
+          />
         </ion-router>
         <ion-nav />
       </ion-app>
