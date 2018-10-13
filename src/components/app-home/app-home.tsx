@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop, State } from '@stencil/core';
 
 import { LanguageService } from '../../services/language';
 @Component({
@@ -9,20 +9,35 @@ export class AppHome {
   @Prop()
   language: LanguageService;
 
+  @State() introText: string;
+
+  componentDidLoad() {
+    this.getVerbiage();  
+  }
+
+  async getVerbiage() {
+    this.introText = await this.language.get('introText');
+  }
+
+  async setLanguage(language: string) {
+    await this.language.setLanguage(language);
+    await this.getVerbiage();
+  }
+
   render() {
     return [
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Home</ion-title>
+          <ion-title>Madness Migrant</ion-title>
         </ion-toolbar>
       </ion-header>,
 
       <ion-content padding>
         <p>
-          {this.language.get('introText')}
+          {this.introText}
         </p>
 
-        <ion-button href="/profile/ionic" expand="block">Profile page</ion-button>
+        <ion-button expand="block" onClick={() => this.setLanguage('es')}>Set to Spanish</ion-button>
       </ion-content>
     ];
   }

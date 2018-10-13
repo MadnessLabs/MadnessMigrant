@@ -23,4 +23,14 @@ export class LanguageService {
     return languageDocRef.data()[name];
   }
 
+  /**
+   * Set the default language for the application
+   * @param language The 2 character language code to set as default
+   */
+  async setLanguage(language: string) {
+    this.currentLanguage = language;
+
+    return true;
+  }
+
 }
