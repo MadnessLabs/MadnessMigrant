@@ -44,7 +44,11 @@ export class AppRoot {
     this.db.settings({
       timestampsInSnapshots: true
     });
-    this.language = new LanguageService(this.db);
+    console.log(this.getParameterByName('lang'));
+    this.language = new LanguageService(
+      this.db,
+      this.getParameterByName('lang')
+    );
 
     this.defaultProps = {
       config: this.config,
@@ -52,6 +56,14 @@ export class AppRoot {
       db: this.db,
       language: this.language
     };
+  }
+
+  getParameterByName(name) {
+    const match = RegExp('[?&]' + name + '=([^&]*)').exec(
+      window.location.search
+    );
+
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
   }
 
   render() {

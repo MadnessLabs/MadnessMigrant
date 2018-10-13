@@ -55,9 +55,6 @@ export class AppHome {
     await this.language.setLanguage(language);
     await this.getVerbiage();
   }
-  public get value(): string {
-    return;
-  }
 
   phoneAuth() {
     this.phoneNumber = this.phoneInputEl.value;

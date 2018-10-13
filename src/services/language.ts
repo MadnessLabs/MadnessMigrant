@@ -7,8 +7,11 @@ export class LanguageService {
   collectionName = 'languages';
   db: firebase.firestore.Firestore;
 
-  constructor(db: firebase.firestore.Firestore) {
+  constructor(db: firebase.firestore.Firestore, language?: string) {
     this.db = db;
+    if (language) {
+      this.setLanguage(language);
+    }
   }
 
   /**
