@@ -1,13 +1,22 @@
-declare var firebase;
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 export class StorageService {
-    service: any;
+  service: firebase.storage.Storage;
 
-    constructor() {
-        this.service = firebase.storage();
-    }
+  constructor() {
+    this.service = this.service ? this.service : firebase.storage();
+  }
 
-    async upload(path, file, metadata = {}) {
-        return this.service.ref(path).put(file, metadata);
-    }
+  async getPhotoUrl(ref) {
+    return ref.getDownloadURL();
+  }
+
+  async getRef(path) {
+    return this.service.ref().child(path);
+  }
+
+  async upload(ref, file) {
+    return ref.put(file);
+  }
 }

@@ -19,14 +19,20 @@ export class AppRoot {
     config: ConfigService;
     db: firebase.firestore.Firestore;
     language: LanguageService;
+    user?: any;
   };
   language: LanguageService;
+  modal: HTMLIonModalElement;
+  routerEl: HTMLIonRouterElement;
+  session: firebase.User;
 
   @Element()
-  rootEl: HTMLElement;
+  rootEl: HTMLAppRootElement;
 
   @Prop({ connect: 'ion-toast-controller' })
   toastCtrl: HTMLIonToastControllerElement;
+  @Prop({ connect: 'ion-modal-controller' })
+  modalCtrl: HTMLIonModalControllerElement;
 
   @Listen('window:swUpdate')
   async onSWUpdate() {
@@ -38,6 +44,26 @@ export class AppRoot {
     await toast.present();
     await toast.onWillDismiss();
     window.location.reload();
+  }
+
+  @Listen('migrantOpenLanguageModal')
+  async onOpenLanguageModal() {
+    this.modal = await this.modalCtrl.create({
+      component: 'modal-language',
+      componentProps: {
+        language: this.language
+      },
+      backdropDismiss: true
+    });
+    this.modal.present();
+  }
+
+  @Listen('body:migrantSetLanguage')
+  async onCloseLanguageModal() {
+    if (this.modal) {
+      this.modal.dismiss();
+      window.location.reload();
+    }
   }
 
   async componentWillLoad() {
@@ -56,15 +82,16 @@ export class AppRoot {
       config: this.config,
       auth: this.auth,
       db: this.db,
-      language: this.language
+      language: this.language,
+      user: {}
     };
   }
 
   async componentDidLoad() {
+    this.routerEl = this.rootEl.querySelector('ion-router');
     await this.auth.onEmailLink();
     this.auth.onAuthChanged(async (session: firebase.User) => {
       if (session) {
-        console.log(session);
         navigator.serviceWorker.ready
           .then(worker => {
             try {
@@ -103,6 +130,25 @@ export class AppRoot {
               error.message
             );
           });
+        const userRef = await this.db
+          .collection('users')
+          .doc(session.uid)
+          .get();
+        if (!userRef.exists) {
+          await this.db
+            .collection('users')
+            .doc(session.uid)
+            .set({
+              email: session.email,
+              phone: session.phoneNumber,
+              photo: session.photoURL
+            });
+          this.routerEl.push('profile');
+        }
+        this.defaultProps = { ...this.defaultProps, user: userRef.data() };
+        if (window.location.pathname === '/') {
+          this.routerEl.push('dashboard');
+        }
       }
     });
   }
@@ -148,7 +194,7 @@ export class AppRoot {
             url="/chat"
             component="migrant-chat"
             componentProps={this.defaultProps}
-          />          
+          />
         </ion-router>
         <ion-nav />
       </ion-app>

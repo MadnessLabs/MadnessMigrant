@@ -1,6 +1,21 @@
 app-profile {
   ion-card {
     padding-bottom: 15px;
+    migrant-photo-uploader {
+      height: 150px;
+      width: 150px;
+    }
+    migrant-text-to-speech {
+      ion-button {
+        right: 15px;
+      }
+    }
+    ion-item.date {
+      margin-top: 12px;
+    }
+    p.subtext {
+      padding: 0 15px;
+    }
     .back {
       color: var(--ion-color-success);
       height: 35px;

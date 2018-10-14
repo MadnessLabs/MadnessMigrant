@@ -9,6 +9,7 @@ export class LanguageService {
 
   constructor(db: firebase.firestore.Firestore, language?: string) {
     this.db = db;
+    language = language ? language : localStorage.getItem('migrantLanguage');
     if (language) {
       this.setLanguage(language);
     }
@@ -43,6 +44,7 @@ export class LanguageService {
   async setLanguage(language: string) {
     this.currentLanguage = language;
     this.currentVoice = await this.getVoice();
+    localStorage.setItem('migrantLanguage', language);
 
     return true;
   }

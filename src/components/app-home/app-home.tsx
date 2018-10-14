@@ -1,13 +1,16 @@
-import { Component, Prop, State } from "@stencil/core";
-import { LanguageService } from "../../services/language";
+import { Component, Prop, State } from '@stencil/core';
+import { LanguageService } from '../../services/language';
 
 @Component({
-  tag: "app-home",
-  styleUrl: "app-home.scss"
+  tag: 'app-home',
+  styleUrl: 'app-home.scss'
 })
 export class AppHome {
   @Prop()
   language: LanguageService;
+  @Prop()
+  user: any;
+
   @State()
   home: {
     title?: string;
@@ -20,13 +23,17 @@ export class AppHome {
     mainHeadlineTwo?: string;
     mainParagraphThree?: string;
   } = {};
+
   async componentDidLoad() {
-    this.home = await this.language.get("home");
+    this.home = await this.language.get('home');
   }
 
   render() {
     return [
-      <app-header />,
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
       <ion-content>
         <div class="header-content">
           <h1>{this.home.title}</h1>
@@ -37,9 +44,9 @@ export class AppHome {
 
         <ion-card>
           <p>{this.home.mainParagraphOne}</p>
-          <ion-title>{this.home.mainHeadlineOne}</ion-title>
+          <h2>{this.home.mainHeadlineOne}</h2>
           <p>{this.home.mainParagraphTwo}</p>
-          <ion-title>{this.home.mainHeadlineTwo}</ion-title>
+          <h2>{this.home.mainHeadlineTwo}</h2>
           <p>{this.home.mainParagraphThree}</p>
         </ion-card>
         <ion-button fill="clear" href="/privacy">

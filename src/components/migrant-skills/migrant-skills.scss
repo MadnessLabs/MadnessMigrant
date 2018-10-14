@@ -1,6 +1,12 @@
 migrant-skills {
-  /* Component styles go here */
-  .is-checked ion-icon {
+  ion-item {
+    cursor: pointer;
+    migrant-text-to-speech ion-button {
+      top: -15px;
+    }
+  }
+
+  .is-checked ion-icon[slot='start'] {
     color: var(--ion-color-success);
   }
 }

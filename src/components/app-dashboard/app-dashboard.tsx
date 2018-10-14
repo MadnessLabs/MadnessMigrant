@@ -1,10 +1,17 @@
-import { Component, State } from '@stencil/core';
+import { Component, Prop, State } from '@stencil/core';
+import { LanguageService } from '../../services/language';
 
 @Component({
   tag: 'app-dashboard',
   styleUrl: 'app-dashboard.scss'
 })
 export class AppDashboard {
+  @Prop()
+  language: LanguageService;
+
+  @Prop()
+  user: any;
+
   @State()
   profiles: any = [
     {
@@ -24,27 +31,32 @@ export class AppDashboard {
   ];
 
   render() {
-    //dashboard
-    return (
-      <ion-card class="dashboard">
-        {this.profiles.map(profile => (
-          <ion-list>
-            <ion-item>
-              <img slot="start" src={profile.avatar} />
-              <div>
-                <h2>{profile.name}</h2>
-                {
-                  <div>
-                    {profile.matchedSkills.map(skill => (
-                      <ion-badge>{skill}</ion-badge>
-                    ))}
-                  </div>
-                }
-              </div>
-            </ion-item>
-          </ion-list>
-        ))}
-      </ion-card>
-    );
+    return [
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
+      <ion-content>
+        <ion-card class="dashboard">
+          {this.profiles.map(profile => (
+            <ion-list>
+              <ion-item>
+                <img slot="start" src={profile.photo} />
+                <div>
+                  <h2>{profile.name}</h2>
+                  {
+                    <div>
+                      {profile.matchedSkills.map(skill => (
+                        <ion-badge>{skill}</ion-badge>
+                      ))}
+                    </div>
+                  }
+                </div>
+              </ion-item>
+            </ion-list>
+          ))}
+        </ion-card>
+      </ion-content>
+    ];
   }
 }
