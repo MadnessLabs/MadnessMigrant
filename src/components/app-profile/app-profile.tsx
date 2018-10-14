@@ -2,6 +2,7 @@ import { Component, Listen, Prop, State } from '@stencil/core';
 import { LanguageService } from '../../services/language';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { AuthService } from '../../services/auth';
 @Component({
   tag: 'app-profile',
   styleUrl: 'app-profile.scss'
@@ -34,6 +35,8 @@ export class AppProfile {
     }
   }
 
+  @Prop()
+  auth: AuthService;
   @Prop()
   db: firebase.firestore.Firestore;
   @Prop()
@@ -80,6 +83,11 @@ export class AppProfile {
       .collection('users')
       .doc(this.session.uid)
       .get()).data();
+  }
+
+  async logout() {
+    await this.auth.logout();
+    window.location.reload();
   }
 
   render() {
@@ -186,6 +194,15 @@ export class AppProfile {
             />
           </ion-card-content>
         </ion-card>
+        <ion-button
+          fill="clear"
+          expand="block"
+          color="light"
+          onClick={() => this.logout()}
+        >
+          <ion-icon name="power" slot="start" />
+          <ion-label>Logout</ion-label>
+        </ion-button>
       </ion-content>
     ];
   }
