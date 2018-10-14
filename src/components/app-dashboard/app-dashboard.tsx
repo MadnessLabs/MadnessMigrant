@@ -32,16 +32,17 @@ export class AppDashboard {
 
   render() {
     return [
-      <app-header
-        language={this.language.currentLanguage}
-        photo={this.user.photo}
-      />,
+      <app-header language={this.language.currentLanguage} isLoggedIn />,
       <ion-content>
         <ion-card class="dashboard">
           {this.profiles.map(profile => (
             <ion-list>
               <ion-item>
-                <img slot="start" src={profile.photo} />
+                <div
+                  class="photo"
+                  slot="start"
+                  style={{ backgroundImage: `url('${profile.photo}')` }}
+                />
                 <div>
                   <h2>{profile.name}</h2>
                   {

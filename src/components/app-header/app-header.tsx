@@ -1,5 +1,4 @@
 import { Component, Event, EventEmitter, Prop } from '@stencil/core';
-declare const firebase: any;
 @Component({
   tag: 'app-header',
   styleUrl: 'app-header.scss'
@@ -13,7 +12,7 @@ export class AppHeader {
   @Prop()
   language: string = 'en';
   @Prop()
-  photo: string;
+  isLoggedIn: boolean;
 
   openLanguageModal(event) {
     this.migrantOpenLanguageModal.emit({ event });
@@ -33,7 +32,7 @@ export class AppHeader {
           </ion-buttons>
           <ion-title>{this.titleText}</ion-title>
           <ion-buttons slot="end">
-            {firebase.auth().currentUser ? (
+            {this.isLoggedIn ? (
               <img
                 src="/assets/images/md-contact.svg"
                 height="35"

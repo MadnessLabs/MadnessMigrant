@@ -144,6 +144,8 @@ export class AppRoot {
               photo: session.photoURL
             });
           this.routerEl.push('profile');
+        } else {
+          this.routerEl.push('dashboard');
         }
         this.defaultProps = { ...this.defaultProps, user: userRef.data() };
         if (window.location.pathname === '/') {

@@ -94,10 +94,7 @@ export class AppProfile {
 
   render() {
     return [
-      <app-header
-        language={this.language.currentLanguage}
-        photo={this.user.photo}
-      />,
+      <app-header language={this.language.currentLanguage} isLoggedIn />,
       <ion-content>
         <ion-button expand="block" href="/dashboard">
           <ion-icon name="people" slot="start" />

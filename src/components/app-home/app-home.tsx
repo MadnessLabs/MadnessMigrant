@@ -30,10 +30,7 @@ export class AppHome {
 
   render() {
     return [
-      <app-header
-        language={this.language.currentLanguage}
-        photo={this.user.photo}
-      />,
+      <app-header language={this.language.currentLanguage} />,
       <ion-content>
         <div class="header-content">
           <h1>{this.home.title}</h1>

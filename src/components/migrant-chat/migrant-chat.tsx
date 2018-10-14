@@ -71,10 +71,7 @@ export class MigrantChat {
   }
   render() {
     return [
-      <app-header
-        language={this.language.currentLanguage}
-        photo={this.user.photo}
-      />,
+      <app-header language={this.language.currentLanguage} isLoggedIn />,
       <ion-content scrollEvents={true}>
         <ion-card>
           <ion-list>

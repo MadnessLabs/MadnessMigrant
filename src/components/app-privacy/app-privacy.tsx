@@ -45,10 +45,7 @@ export class AppPrivacy {
 
   render() {
     return [
-      <app-header
-        language={this.language.currentLanguage}
-        photo={this.user.photo}
-      />,
+      <app-header language={this.language.currentLanguage} />,
       <ion-content padding>
         <migrant-text-to-speech voice={this.language.currentVoice}>
           <ion-card>
