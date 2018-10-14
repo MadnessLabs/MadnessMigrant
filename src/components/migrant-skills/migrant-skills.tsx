@@ -47,12 +47,14 @@ export class MigrantSkills {
   }
 
   sendSkills() {
-    this.ionChange.emit({ data: this.selectedSkills });
+    this.ionChange.emit({ name: 'skills', value: this.selectedSkills });
   }
 
   @Listen('ionChange')
   onIonChange(event) {
-    this.searchTerms = event.detail.value;
+    if (event.detail && !event.detail.name) {
+      this.searchTerms = event.detail.value;
+    }
   }
 
   render() {
@@ -65,6 +67,7 @@ export class MigrantSkills {
                 skill =>
                   !this.searchTerms ||
                   (this.searchTerms &&
+                    this.searchTerms.length &&
                     this.skills[skill]
                       .toLowerCase()
                       .includes(this.searchTerms.toLowerCase())) ? (

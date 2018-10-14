@@ -6,6 +6,7 @@ app-root {
   ion-card {
     --background: rgba(255, 255, 255, 0.9) !important;
   }
+
   ion-list {
     --background: none;
     background: none !important;
@@ -42,5 +43,14 @@ app-root {
 
   .error-message ion-icon {
     padding-right: 5px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    ion-card ion-card-title {
+      font-size: 18px;
+      migrant-text-to-speech ion-button {
+        font-size: 18px !important;
+      }
+    }
   }
 }

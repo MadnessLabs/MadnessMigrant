@@ -109,6 +109,14 @@ export class AppRoot {
           .doc(session.uid)
           .get();
         if (!userRef.exists) {
+          await this.db
+            .collection('users')
+            .doc(session.uid)
+            .set({
+              email: session.email,
+              phone: session.phoneNumber,
+              photo: session.photoURL
+            });
           this.routerEl.push('profile');
         }
       }

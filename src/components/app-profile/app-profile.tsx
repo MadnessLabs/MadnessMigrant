@@ -1,14 +1,37 @@
 import { Component, Listen, Prop, State } from '@stencil/core';
 import { LanguageService } from '../../services/language';
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
 @Component({
   tag: 'app-profile',
   styleUrl: 'app-profile.scss'
 })
 export class AppProfile {
   @Listen('ionChange')
-  onIonChange(event) {
-    console.log(event);
+  async onIonChange(event) {
+    if (!this.session || !this.session.uid) {
+      return false;
+    }
+    if (event.detail.name) {
+      await this.db
+        .collection('users')
+        .doc(this.session.uid)
+        .update({ [event.detail.name]: event.detail.value });
+    } else if (event.path[0].name) {
+      await this.db
+        .collection('users')
+        .doc(this.session.uid)
+        .update({ [event.path[0].name]: event.detail.value });
+    } else if (event.detail.value.day) {
+      await this.db
+        .collection('users')
+        .doc(this.session.uid)
+        .update({
+          birthday: `${event.detail.value.month}-${event.detail.value.day}-${
+            event.detail.value.year
+          }`
+        });
+    }
   }
 
   @Prop()
@@ -46,10 +69,18 @@ export class AppProfile {
   } = {};
   @State()
   skills: any;
+  @State()
+  session: firebase.User;
 
   async componentDidLoad() {
     this.profileText = await this.language.get('profile');
     this.skills = await this.language.get('skills');
+    this.session = firebase.auth().currentUser;
+    this.profile = (await this.db
+      .collection('users')
+      .doc(this.session.uid)
+      .get()).data();
+    console.log(this.session);
   }
 
   render() {
@@ -69,7 +100,7 @@ export class AppProfile {
             />
             <ion-grid>
               <ion-row>
-                <ion-col>
+                <ion-col size="12" sizeMd="6">
                   <ion-item>
                     <ion-label position="stacked">
                       {this.profileText.personalFirstNameLabel}
@@ -83,7 +114,7 @@ export class AppProfile {
                     />
                   </ion-item>
                 </ion-col>
-                <ion-col>
+                <ion-col size="12" sizeMd="6">
                   <ion-item>
                     <ion-label position="stacked">
                       {this.profileText.personalLastNameLabel}
@@ -97,7 +128,7 @@ export class AppProfile {
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col>
+                <ion-col size="12" sizeMd="6">
                   <ion-item class="date">
                     <ion-label position="stacked">
                       {this.profileText.personalBirthdayLabel}
@@ -109,7 +140,7 @@ export class AppProfile {
                     />
                   </ion-item>
                 </ion-col>
-                <ion-col>
+                <ion-col size="12" sizeMd="6">
                   <ion-item>
                     <ion-label position="stacked">
                       {this.profileText.personalBioLabel}
@@ -119,6 +150,20 @@ export class AppProfile {
                       name="bio"
                       value={this.profile.bio ? this.profile.bio : ''}
                     />
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" sizeMd="6">
+                  <ion-item>
+                    <ion-label position="stacked">Email</ion-label>
+                    <ion-input name="email" value={this.profile.email} />
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" sizeMd="6">
+                  <ion-item>
+                    <ion-label position="stacked">Phone</ion-label>
+                    <ion-input name="phone" value={this.profile.lastName} />
                   </ion-item>
                 </ion-col>
               </ion-row>
