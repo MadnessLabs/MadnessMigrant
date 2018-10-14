@@ -1,0 +1,33 @@
+migrant-message {
+    padding: .5rem;
+    .msg-bubble {
+        padding: .5rem;
+        border-radius: 10px;
+        width: 80%;        
+    }
+    span {
+        display: inline-block;
+        padding-top: 5px;
+    }
+    img {
+        display: inline;
+        max-width: 50px !important;
+        border-radius: 100%;
+    }
+    .me-msg {
+        background: var(--ion-color-success-tint);
+    }
+    .them-msg {
+        background: var(--ion-color-secondary-tint);
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        .img-span {
+            width: 100%;
+            img {
+                margin-left: auto;
+            }
+
+        }
+    }    
+}

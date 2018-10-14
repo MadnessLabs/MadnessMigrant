@@ -144,6 +144,11 @@ export class AppRoot {
             component="app-profile"
             componentProps={this.defaultProps}
           />
+          <ion-route
+            url="/chat"
+            component="migrant-chat"
+            componentProps={this.defaultProps}
+          />          
         </ion-router>
         <ion-nav />
       </ion-app>
