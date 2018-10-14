@@ -80,7 +80,13 @@ export class AppRoot {
             component="app-privacy"
             componentProps={this.defaultProps}
           />
+          <ion-route
+            url="/dashboard"
+            component="app-dashboard"
+            componentProps={this.defaultProps}
+          />          
         </ion-router>
+        
         <ion-nav />
       </ion-app>
     );
