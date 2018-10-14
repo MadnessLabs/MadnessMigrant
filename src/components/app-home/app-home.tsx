@@ -38,9 +38,9 @@ export class AppHome {
 
         <ion-card>
           <p>{this.home.mainParagraphOne}</p>
-          <ion-title>{this.home.mainHeadlineOne}</ion-title>
+          <h2>{this.home.mainHeadlineOne}</h2>
           <p>{this.home.mainParagraphTwo}</p>
-          <ion-title>{this.home.mainHeadlineTwo}</ion-title>
+          <h2>{this.home.mainHeadlineTwo}</h2>
           <p>{this.home.mainParagraphThree}</p>
         </ion-card>
       </ion-content>

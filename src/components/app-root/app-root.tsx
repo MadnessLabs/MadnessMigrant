@@ -23,6 +23,7 @@ export class AppRoot {
   language: LanguageService;
   modal: HTMLIonModalElement;
   routerEl: HTMLIonRouterElement;
+  session: firebase.User;
 
   @Element()
   rootEl: HTMLAppRootElement;
@@ -142,6 +143,9 @@ export class AppRoot {
             });
           this.routerEl.push('profile');
         }
+        if (window.location.pathname === '/') {
+          this.routerEl.push('dashboard');
+        }
       }
     });
   }
@@ -187,7 +191,7 @@ export class AppRoot {
             url="/chat"
             component="migrant-chat"
             componentProps={this.defaultProps}
-          />          
+          />
         </ion-router>
         <ion-nav />
       </ion-app>
