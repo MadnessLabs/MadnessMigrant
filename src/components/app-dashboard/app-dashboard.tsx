@@ -7,28 +7,29 @@ import { LanguageService } from '../../services/language';
 })
 export class AppDashboard {
   @Prop()
+  db: firebase.firestore.Firestore;
+  @Prop()
   language: LanguageService;
-
   @Prop()
   user: any;
 
   @State()
-  profiles: any = [
-    {
-      id: 1,
-      matchedSkills: ['english', 'skill2', 'business'],
-      name: 'Link',
-      avatar:
-        'https://i.kym-cdn.com/entries/icons/original/000/017/517/images_(1).jpg'
-    },
-    {
-      id: 2,
-      matchedSkills: ['marketing', 'tutoring', 'business'],
-      name: 'Look-a-like',
-      avatar:
-        'https://i.kym-cdn.com/entries/icons/original/000/017/517/images_(1).jpg'
-    }
-  ];
+  profiles: any = [];
+  @State()
+  skills: any;
+
+  async componentDidLoad() {
+    console.log(this.user);
+    this.skills = await this.language.get('skills');
+    this.db.collection('users').onSnapshot(async snap => {
+      console.log(snap);
+      this.profiles = [];
+      for (const doc of snap.docs) {
+        console.log(doc.data());
+        this.profiles.push({ ...doc.data(), id: doc.id });
+      }
+    });
+  }
 
   render() {
     return [
@@ -41,18 +42,31 @@ export class AppDashboard {
                 <div
                   class="photo"
                   slot="start"
-                  style={{ backgroundImage: `url('${profile.photo}')` }}
+                  style={{
+                    backgroundImage: `url('${
+                      profile.photo
+                        ? profile.photo
+                        : './assets/images/md-contact.svg'
+                    }')`
+                  }}
                 />
                 <div>
-                  <h2>{profile.name}</h2>
+                  <h2>
+                    {profile.firstName} {profile.lastName}
+                  </h2>
                   {
                     <div>
-                      {profile.matchedSkills.map(skill => (
-                        <ion-badge>{skill}</ion-badge>
-                      ))}
+                      {profile && profile.skills
+                        ? profile.skills.map(skill => (
+                            <ion-badge>{this.skills[skill]}</ion-badge>
+                          ))
+                        : null}
                     </div>
                   }
                 </div>
+                <ion-button href="/chat" color="secondary" slot="end">
+                  <ion-icon name="chatboxes" />
+                </ion-button>
               </ion-item>
             </ion-list>
           ))}

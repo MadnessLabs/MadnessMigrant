@@ -1,18 +1,4 @@
 app-dashboard {
-  ion-list {
-    padding: 0 1rem;
-  }
-  ion-item {
-    display: flex;
-    justify-content: space-between;
-    margin: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--ion-color-secondary);
-  }
-  h2 {
-    font-size: 2.5rem;
-    color: var(--ion-color-secondary);
-  }
   .photo {
     width: 50px;
     height: 50px;
@@ -20,6 +6,12 @@ app-dashboard {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+  }
+  h2 {
+    margin: 0;
+  }
+  ion-item {
+    padding: 5px 0;
   }
   ion-badge {
     margin-right: 1rem;
