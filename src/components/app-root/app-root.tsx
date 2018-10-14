@@ -21,6 +21,7 @@ export class AppRoot {
     language: LanguageService;
   };
   language: LanguageService;
+  routerEl: HTMLIonRouterElement;
 
   @Element()
   rootEl: HTMLElement;
@@ -61,10 +62,10 @@ export class AppRoot {
   }
 
   async componentDidLoad() {
+    this.routerEl = this.rootEl.querySelector('ion-router');
     await this.auth.onEmailLink();
     this.auth.onAuthChanged(async (session: firebase.User) => {
       if (session) {
-        console.log(session);
         navigator.serviceWorker.ready
           .then(worker => {
             try {
@@ -103,6 +104,13 @@ export class AppRoot {
               error.message
             );
           });
+        const userRef = await this.db
+          .collection('users')
+          .doc(session.uid)
+          .get();
+        if (!userRef.exists) {
+          this.routerEl.push('profile');
+        }
       }
     });
   }
