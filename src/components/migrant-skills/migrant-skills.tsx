@@ -4,6 +4,7 @@ import {
   Element,
   EventEmitter,
   Listen,
+  Prop,
   State
 } from '@stencil/core';
 
@@ -16,27 +17,17 @@ export class MigrantSkills {
   appHomeEl: HTMLMigrantSkillsElement;
 
   @Event()
-  migrantSkillsEvent: EventEmitter;
+  ionChange: EventEmitter;
+
+  @Prop()
+  skills: any;
 
   @State()
   searchEl: any;
   @State()
-  skills: any = [
-    'skillA',
-    'skillB',
-    'skillC',
-    'skillD',
-    'skillBee',
-    'skillOKAY'
-  ];
-  @State()
-  shownSkills: any;
-  @State()
   selectedSkills: any = ['skillB'];
-
-  componentWillLoad() {
-    this.shownSkills = this.skills;
-  }
+  @State()
+  searchTerms: string;
 
   componentDidLoad() {
     this.searchEl = this.appHomeEl.getElementsByClassName('search-skills');
@@ -53,19 +44,12 @@ export class MigrantSkills {
     this.sendSkills();
   }
   sendSkills() {
-    this.migrantSkillsEvent.emit({ data: this.selectedSkills });
+    this.ionChange.emit({ data: this.selectedSkills });
   }
+
   @Listen('ionChange')
-  filterList() {
-    this.shownSkills = [];
-    this.skills.forEach(skill => {
-      if (skill.includes(this.searchEl[0].value)) {
-        this.shownSkills = [...this.shownSkills, skill];
-      }
-      if (this.searchEl.length === 0) {
-        this.shownSkills = this.skills;
-      }
-    });
+  onIonChange(event) {
+    this.searchTerms = event.detail.value;
   }
 
   render() {
@@ -73,24 +57,28 @@ export class MigrantSkills {
       <div class="skills">
         <ion-searchbar class="search-skills" />
         <ion-list>
-          {this.shownSkills.map(skill => (
-            <ion-item
-              class={
-                this.selectedSkills.indexOf(skill) !== -1 ? 'is-checked' : null
-              }
-              onClick={event => this.addSelectedSkills(event, skill)}
-            >
-              <ion-icon
-                slot="start"
-                name={
-                  this.selectedSkills.indexOf(skill) !== -1
-                    ? 'checkbox'
-                    : 'checkbox-outline'
-                }
-              />
-              <ion-label>{skill}</ion-label>
-            </ion-item>
-          ))}
+          {this.skills
+            ? Object.keys(this.skills).map(skill => (
+                <ion-item
+                  class={
+                    this.selectedSkills.indexOf(skill) !== -1
+                      ? 'is-checked'
+                      : null
+                  }
+                  onClick={event => this.addSelectedSkills(event, skill)}
+                >
+                  <ion-icon
+                    slot="start"
+                    name={
+                      this.selectedSkills.indexOf(skill) !== -1
+                        ? 'checkbox'
+                        : 'checkbox-outline'
+                    }
+                  />
+                  <ion-label>{this.skills[skill]}</ion-label>
+                </ion-item>
+              ))
+            : null}
         </ion-list>
       </div>
     );
