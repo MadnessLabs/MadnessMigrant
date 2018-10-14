@@ -15,8 +15,8 @@
     "build:prerender": "npm run copy && stencil build --prerender",
     "build:stats": "npm run copy && stencil build --stats",
     "deploy": "npm run deploy:dev",
-    "deploy:dev": "npm run lint:app && npm run env -- dev && npm run copy && stencil build && firebase deploy",
-    "deploy:live": "npm run lint:app && npm run env -- live && npm run copy && stencil build && firebase deploy -P live",
+    "deploy:dev": "npm run lint:app:fix && npm run env -- dev && npm run copy && stencil build && firebase deploy",
+    "deploy:live": "npm run lint:app:fix && npm run env -- live && npm run copy && stencil build && firebase deploy -P live",
     "dev": "npm run copy && npm run env -- local && stencil build --dev --watch --serve",
     "copy": "node tasks/copy.js",
     "env": "node tasks/env.js",
@@ -39,6 +39,8 @@
   "devDependencies": {
     "@stencil/sass": "^0.1.1",
     "fs-extra": "^7.0.0",
+    "tslint": "^5.11.0",
+    "tslint-ionic-rules": "0.0.19",
     "workbox-build": "3.4.1"
   }
 }

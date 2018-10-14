@@ -1,8 +1,8 @@
-import { Component, Prop, State } from "@stencil/core";
+import { Component, Prop, State } from '@stencil/core';
 
 @Component({
-  tag: "app-profile",
-  styleUrl: "app-profile.scss"
+  tag: 'app-profile',
+  styleUrl: 'app-profile.scss'
 })
 export class AppProfile {
   @State()
@@ -12,15 +12,7 @@ export class AppProfile {
 
   render() {
     return [
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/" />
-          </ion-buttons>
-          <ion-title>Profile: {this.name}</ion-title>
-        </ion-toolbar>
-      </ion-header>,
-
+      <app-header />,
       <ion-content padding>
         <ion-card>
           <ion-item>

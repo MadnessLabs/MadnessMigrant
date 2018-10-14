@@ -5,11 +5,11 @@ import {
   EventEmitter,
   Listen,
   State
-} from "@stencil/core";
+} from '@stencil/core';
 
 @Component({
-  tag: "migrant-skills",
-  styleUrl: "migrant-skills.scss"
+  tag: 'migrant-skills',
+  styleUrl: 'migrant-skills.scss'
 })
 export class MigrantSkills {
   @Element()
@@ -22,24 +22,24 @@ export class MigrantSkills {
   searchEl: any;
   @State()
   skills: any = [
-    "skillA",
-    "skillB",
-    "skillC",
-    "skillD",
-    "skillBee",
-    "skillOKAY"
+    'skillA',
+    'skillB',
+    'skillC',
+    'skillD',
+    'skillBee',
+    'skillOKAY'
   ];
   @State()
   shownSkills: any;
   @State()
-  selectedSkills: any = ["skillB"];
+  selectedSkills: any = ['skillB'];
 
   componentWillLoad() {
     this.shownSkills = this.skills;
   }
 
   componentDidLoad() {
-    this.searchEl = this.appHomeEl.getElementsByClassName("search-skills");
+    this.searchEl = this.appHomeEl.getElementsByClassName('search-skills');
   }
 
   addSelectedSkills(event, skill) {
@@ -55,7 +55,7 @@ export class MigrantSkills {
   sendSkills() {
     this.migrantSkillsEvent.emit({ data: this.selectedSkills });
   }
-  @Listen("ionChange")
+  @Listen('ionChange')
   filterList() {
     this.shownSkills = [];
     this.skills.forEach(skill => {
@@ -77,15 +77,15 @@ export class MigrantSkills {
           {this.shownSkills.map(skill => (
             <ion-item
               class={
-                this.selectedSkills.indexOf(skill) !== -1 ? "is-checked" : null
+                this.selectedSkills.indexOf(skill) !== -1 ? 'is-checked' : null
               }
               onClick={event => this.addSelectedSkills(event, skill)}
             >
               <ion-icon
                 name={
                   this.selectedSkills.indexOf(skill) !== -1
-                    ? "checkbox"
-                    : "checkbox-outline"
+                    ? 'checkbox'
+                    : 'checkbox-outline'
                 }
               />
               <p>{skill}</p>
