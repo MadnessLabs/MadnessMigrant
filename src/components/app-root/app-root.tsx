@@ -8,7 +8,7 @@ import { LanguageService } from '../../services/language';
 
 @Component({
   tag: 'app-root',
-  styleUrl: 'app-root.css'
+  styleUrl: 'app-root.scss'
 })
 export class AppRoot {
   auth: AuthService;
@@ -122,6 +122,11 @@ export class AppRoot {
           <ion-route
             url="/"
             component="app-home"
+            componentProps={this.defaultProps}
+          />
+          <ion-route
+            url="/login"
+            component="app-login"
             componentProps={this.defaultProps}
           />
           <ion-route

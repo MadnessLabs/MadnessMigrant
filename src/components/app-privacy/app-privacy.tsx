@@ -3,7 +3,7 @@ import { LanguageService } from '../../services/language';
 
 @Component({
   tag: 'app-privacy',
-  styleUrl: 'app-privacy.css'
+  styleUrl: 'app-privacy.scss'
 })
 export class AppPrivacy {
   @Prop()

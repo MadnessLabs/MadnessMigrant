@@ -1,0 +1,97 @@
+app-login {
+  .flag {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  #language ion-grid {
+    width: 100%;
+    display: block;
+  }
+
+  #language ion-col:hover {
+    cursor: pointer;
+  }
+
+  #language ion-col:hover .flag,
+  .flag.active {
+    border: 2px solid var(--ion-color-success);
+  }
+
+  button {
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .onboarding-controls ion-button:first-of-type {
+    float: left;
+  }
+
+  .onboarding-controls ion-button:last-of-type {
+    float: right;
+  }
+
+  .flag.active ion-icon {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    height: 30px;
+    width: 30px;
+    color: var(--ion-color-success);
+    background-color: #fff;
+    border-radius: 100%;
+  }
+
+  ion-card {
+    margin: 0 auto !important;
+    max-width: 500px;
+  }
+
+  #social-logins {
+    text-align: left;
+  }
+
+  #social-logins ion-button {
+    margin: 10px 0;
+  }
+
+  #social-logins .google ion-icon {
+    color: #dd4b39;
+  }
+
+  #social-logins .facebook ion-icon {
+    color: #3b5999;
+  }
+
+  #email-sent .icon-wrapper {
+    display: block;
+    width: 100%;
+    margin: 0 auto !important;
+    float: left;
+  }
+
+  #email-sent ion-icon {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto !important;
+  }
+
+  #email-sent h2 {
+    color: var(--ion-color-dark);
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    float: left;
+  }
+}
