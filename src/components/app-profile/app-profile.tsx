@@ -20,13 +20,21 @@ export class AppProfile {
       </ion-header>,
 
       <ion-content padding>
-        <ion-item>
-          <ion-label>Setting ({this.state.toString()})</ion-label>
-          <ion-toggle
-            checked={this.state}
-            onIonChange={ev => (this.state = ev.detail.checked)}
-          />
-        </ion-item>
+        <div class="avatar">
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label>FULL NAME</ion-label>
+                <ion-input placeholder="Bruce Wayne">
+
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
       </ion-content>
     ];
   }
