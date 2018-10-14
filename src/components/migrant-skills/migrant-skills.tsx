@@ -5,7 +5,8 @@ import {
   EventEmitter,
   Listen,
   Prop,
-  State
+  State,
+  Watch
 } from '@stencil/core';
 
 @Component({
@@ -23,6 +24,8 @@ export class MigrantSkills {
   skills: any;
   @Prop()
   voice: string;
+  @Prop()
+  interests: number[] = [];
 
   @State()
   searchEl: any;
@@ -30,6 +33,11 @@ export class MigrantSkills {
   selectedSkills: any = [];
   @State()
   searchTerms: string;
+
+  @Watch('interests')
+  onInterestsChange() {
+    this.selectedSkills = this.interests;
+  }
 
   componentDidLoad() {
     this.searchEl = this.appHomeEl.getElementsByClassName('search-skills');

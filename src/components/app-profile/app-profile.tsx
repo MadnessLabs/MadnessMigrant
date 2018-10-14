@@ -80,13 +80,16 @@ export class AppProfile {
       .collection('users')
       .doc(this.session.uid)
       .get()).data();
-    console.log(this.session);
   }
 
   render() {
     return [
       <app-header />,
       <ion-content>
+        <ion-button expand="block" href="/dashboard">
+          <ion-icon name="people" slot="start" />
+          <ion-label>See Mentor Matches</ion-label>
+        </ion-button>
         <ion-card>
           <migrant-text-to-speech voice={this.language.currentVoice}>
             <ion-card-title>{this.profileText.personalTitle}</ion-card-title>
@@ -178,6 +181,7 @@ export class AppProfile {
           <ion-card-content>
             <migrant-skills
               skills={this.skills}
+              interests={this.profile.skills}
               voice={this.language.currentVoice}
             />
           </ion-card-content>

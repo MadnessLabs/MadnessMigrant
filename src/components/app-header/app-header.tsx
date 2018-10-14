@@ -7,6 +7,8 @@ import { Component, Prop } from '@stencil/core';
 export class AppHeader {
   @Prop()
   titleText = 'Madness Migrant';
+  @Prop()
+  language: string = 'en';
 
   render() {
     return (
@@ -16,6 +18,13 @@ export class AppHeader {
             <img src="/assets/icon/icon.png" height="35" width="35" />
           </ion-buttons>
           <ion-title>{this.titleText}</ion-title>
+          <ion-buttons slot="end">
+            <img
+              src={`/assets/flags/${this.language}.png`}
+              height="35"
+              width="35"
+            />
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
     );

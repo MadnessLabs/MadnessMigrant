@@ -28,6 +28,11 @@ export class AppLogin {
     }
   }
 
+  @Listen('migrantSetLanguage')
+  onSetLanguage() {
+    this.getVerbiage();
+  }
+
   @Prop()
   language: LanguageService;
   @Prop()
@@ -45,11 +50,6 @@ export class AppLogin {
   phoneNumber: any;
   @State()
   viewType: string;
-  @State()
-  availableLanguages: {
-    name: string;
-    code: string;
-  }[] = [];
   @State()
   onboardingText: {
     back?: string;
@@ -80,17 +80,11 @@ export class AppLogin {
     };
     await this.getVerbiage();
     this.auth.createCaptcha(this.appLoginEl.querySelector('#recaptcha'));
-    this.availableLanguages = await this.language.list();
   }
 
   async getVerbiage() {
     this.onboardingText = await this.language.get('onboarding');
     this.setStepTitle();
-  }
-
-  async setLanguage(language: string) {
-    await this.language.setLanguage(language);
-    await this.getVerbiage();
   }
 
   async setStepTitle() {
@@ -181,30 +175,8 @@ export class AppLogin {
             ) : null}
             <ion-slides options={this.sliderOptions}>
               <ion-slide id="language">
-                <ion-grid>
-                  <ion-row>
-                    {this.availableLanguages.map(language => (
-                      <ion-col onClick={() => this.setLanguage(language.code)}>
-                        <div
-                          class={
-                            this.language.currentLanguage === language.code
-                              ? 'flag active'
-                              : 'flag'
-                          }
-                          style={{
-                            backgroundImage: `url('./assets/flags/${
-                              language.code
-                            }.png')`
-                          }}
-                        >
-                          {this.language.currentLanguage === language.code ? (
-                            <ion-icon name="checkmark-circle" />
-                          ) : null}
-                        </div>
-                        <b>{language.name}</b>
-                      </ion-col>
-                    ))}
-                  </ion-row>
+                <div id="language-wrapper">
+                  <migrant-language language={this.language} />
                   <div class="onboarding-controls">
                     <ion-button
                       onClick={() => this.slideNext()}
@@ -213,7 +185,7 @@ export class AppLogin {
                       {this.onboardingText.continue}
                     </ion-button>
                   </div>
-                </ion-grid>
+                </div>
               </ion-slide>
               <ion-slide>
                 <ion-grid>
