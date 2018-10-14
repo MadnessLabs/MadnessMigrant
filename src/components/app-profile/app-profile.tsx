@@ -2,7 +2,7 @@ import { Component, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'app-profile',
-  styleUrl: 'app-profile.css'
+  styleUrl: 'app-profile.scss'
 })
 export class AppProfile {
   @State() state = false;
@@ -20,21 +20,38 @@ export class AppProfile {
       </ion-header>,
 
       <ion-content padding>
-        <div class="avatar">
-        </div>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label>FULL NAME</ion-label>
-                <ion-input placeholder="Bruce Wayne">
 
-                </ion-input>
+        <ion-card>
+          <div class="avatar">
+          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">FIRST NAME</ion-label>
+                  <ion-input placeholder="Bruce">
+
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">LAST NAME</ion-label>
+                  <ion-input placeholder="Wayne">
+
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-item>
+                <ion-label position="stacked">Date</ion-label>
+                <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
               </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        
+            </ion-row>
+          </ion-grid>
+        </ion-card>   
+
       </ion-content>
     ];
   }
