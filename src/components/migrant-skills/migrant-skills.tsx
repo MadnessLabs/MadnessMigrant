@@ -1,7 +1,7 @@
 import {
   Component,
-  Element,
   Event,
+  Element,
   EventEmitter,
   Listen,
   State
@@ -9,7 +9,7 @@ import {
 
 @Component({
   tag: 'migrant-skills',
-  styleUrl: 'migrant-skills.css'
+  styleUrl: 'migrant-skills.scss'
 })
 export class MigrantSkills {
   @Element()
@@ -52,11 +52,9 @@ export class MigrantSkills {
     }
     this.sendSkills();
   }
-
   sendSkills() {
     this.migrantSkillsEvent.emit({ data: this.selectedSkills });
   }
-
   @Listen('ionChange')
   filterList() {
     this.shownSkills = [];
@@ -77,14 +75,18 @@ export class MigrantSkills {
 
         <ion-list>
           {this.shownSkills.map(skill => (
-            <ion-item>
+            <ion-item
+              class={
+                this.selectedSkills.indexOf(skill) !== -1 ? 'is-checked' : null
+              }
+              onClick={event => this.addSelectedSkills(event, skill)}
+            >
               <ion-icon
                 name={
                   this.selectedSkills.indexOf(skill) !== -1
-                    ? 'checkbox-outline'
-                    : 'checkbox'
+                    ? 'checkbox'
+                    : 'checkbox-outline'
                 }
-                onClick={event => this.addSelectedSkills(event, skill)}
               />
               <p>{skill}</p>
             </ion-item>

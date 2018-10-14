@@ -2,7 +2,7 @@ import { Component, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'app-profile',
-  styleUrl: 'app-profile.css'
+  styleUrl: 'app-profile.scss'
 })
 export class AppProfile {
   @State()
@@ -14,17 +14,49 @@ export class AppProfile {
     return [
       <app-header />,
       <ion-content padding>
-        <div class="avatar" />
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label>FULL NAME</ion-label>
-                <ion-input placeholder="Bruce Wayne" />
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-card>
+          <ion-item>
+            <ion-icon name="arrow-back" class="back" slot="start" />
+          </ion-item>
+          <ion-item class="avatar">
+            <ion-icon name="create" class="edit" slot="end" />
+          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">FIRST NAME</ion-label>
+                  <ion-input placeholder="Bruce" />
+                  <ion-icon name="create" class="edit" slot="end" />
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">LAST NAME</ion-label>
+                  <ion-input placeholder="Wayne" />
+                  <ion-icon name="create" class="edit" slot="end" />
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item class="date">
+                  <ion-label position="stacked">BIRTHDAY</ion-label>
+                  <ion-icon name="create" class="edit" slot="end" />
+                  <ion-datetime display-format="MMM DD, YYYY HH:mm" />
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">BIOGRAPHY</ion-label>
+                  <ion-icon name="create" class="edit" slot="end" />
+                  <ion-textarea placeholder="Tell us a little bit about yourself" />
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <migrant-skills />
+        </ion-card>
       </ion-content>
     ];
   }
