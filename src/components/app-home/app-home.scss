@@ -1,2 +1,13 @@
 app-home {
+  ion-card {
+    margin: 0px auto !important;
+    padding: 0 30px;
+    max-width: 1024px;
+  }
+
+  @media (max-width: 1024px) {
+    ion-card {
+      margin: 0 20px;
+    }
+  }
 }
