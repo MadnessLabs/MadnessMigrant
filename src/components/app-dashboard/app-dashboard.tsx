@@ -1,6 +1,9 @@
 import { Component, Prop, State } from '@stencil/core';
 import { LanguageService } from '../../services/language';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 @Component({
   tag: 'app-dashboard',
   styleUrl: 'app-dashboard.scss'
@@ -10,23 +13,28 @@ export class AppDashboard {
   db: firebase.firestore.Firestore;
   @Prop()
   language: LanguageService;
-  @Prop()
-  user: any;
 
+  @State()
+  user: any;
   @State()
   profiles: any = [];
   @State()
   skills: any;
 
   async componentDidLoad() {
-    console.log(this.user);
+    const currentUser = firebase.auth().currentUser;
+    const userRef = await this.db
+      .collection('users')
+      .doc(currentUser.uid)
+      .get();
+    this.user = userRef.data();
     this.skills = await this.language.get('skills');
     this.db.collection('users').onSnapshot(async snap => {
-      console.log(snap);
       this.profiles = [];
       for (const doc of snap.docs) {
-        console.log(doc.data());
-        this.profiles.push({ ...doc.data(), id: doc.id });
+        if (doc.data().skills) {
+          this.profiles.push({ ...doc.data(), id: doc.id });
+        }
       }
     });
   }
@@ -58,7 +66,15 @@ export class AppDashboard {
                     <div>
                       {profile && profile.skills
                         ? profile.skills.map(skill => (
-                            <ion-badge>{this.skills[skill]}</ion-badge>
+                            <ion-badge
+                              color={
+                                this.user.skills.indexOf(skill) >= 0
+                                  ? 'secondary'
+                                  : 'primary'
+                              }
+                            >
+                              {this.skills[skill]}
+                            </ion-badge>
                           ))
                         : null}
                     </div>

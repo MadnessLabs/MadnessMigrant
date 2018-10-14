@@ -96,7 +96,7 @@ export class AppProfile {
     return [
       <app-header language={this.language.currentLanguage} isLoggedIn />,
       <ion-content>
-        <ion-button expand="block" href="/dashboard">
+        <ion-button expand="block" href="/dashboard" color="secondary">
           <ion-icon name="people" slot="start" />
           <ion-label>See Mentor Matches</ion-label>
         </ion-button>
