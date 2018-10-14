@@ -5,19 +5,25 @@ export class AuthService {
   public session: any;
 
   constructor(config?: any) {
-    let firstRun = false;
+    let firstRun = true;
     if (firebase.apps.length === 0) {
       firebase.initializeApp(config);
-      firstRun = true;
     }
     this.service = firebase.auth();
 
     if (firstRun) {
-      this.service.getRedirectResult().then(data => {
-        if (data && data.user) {
-          this.emitLoggedInEvent(data);
-        }
-      });
+      this.service
+        .getRedirectResult()
+        .then(data => {
+          console.log(data);
+          if (data && data.user) {
+            this.emitLoggedInEvent(data);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      firstRun = false;
     }
   }
 

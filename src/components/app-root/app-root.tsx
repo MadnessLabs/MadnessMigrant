@@ -60,6 +60,52 @@ export class AppRoot {
     };
   }
 
+  componentDidLoad() {
+    this.auth.onAuthChanged(async (session: firebase.User) => {
+      if (session) {
+        console.log(session);
+        navigator.serviceWorker.ready
+          .then(worker => {
+            try {
+              console.log('initializing firebase messaging..');
+              firebase.messaging().useServiceWorker(worker);
+              const messaging = firebase.messaging();
+              messaging
+                .requestPermission()
+                .then(async () => {
+                  const messagingToken = messaging.getToken();
+                  await this.db
+                    .collection('users')
+                    .doc(session.uid)
+                    .update({
+                      notificationToken: await messagingToken
+                    });
+                  messaging.onMessage(async payload => {
+                    const toast = await this.toastCtrl.create({
+                      message: payload._notification.title,
+                      showCloseButton: true,
+                      closeButtonText: 'Dismiss'
+                    });
+                    await toast.present();
+                  });
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            } catch (error) {
+              console.log(`Your device doesn't support push notifications!`);
+            }
+          })
+          .catch(error => {
+            console.log(
+              'Service worker not enabled, push notifications will not work!',
+              error.message
+            );
+          });
+      }
+    });
+  }
+
   getParameterByName(name) {
     const match = RegExp('[?&]' + name + '=([^&]*)').exec(
       window.location.search

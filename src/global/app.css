@@ -126,3 +126,11 @@ ion-nav {
 ion-grid {
   width: 100%;
 }
+
+.error-message {
+  color: var(--ion-color-danger);
+}
+
+.error-message ion-icon {
+  padding-right: 5px;
+}

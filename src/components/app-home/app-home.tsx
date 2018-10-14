@@ -40,6 +40,8 @@ export class AppHome {
   @State()
   emailAddress: string;
   @State()
+  error: string;
+  @State()
   phoneNumber: any;
   @State()
   viewType: string;
@@ -111,7 +113,7 @@ export class AppHome {
         return confirmationResult;
       })
       .catch(error => {
-        // Error;SMS not sent
+        this.error = error.message;
         console.log(error);
       });
 
@@ -119,6 +121,7 @@ export class AppHome {
   }
 
   emailAuth() {
+    this.error = null;
     this.auth
       .withEmailLink(this.emailAddress, this.actionOptions)
       .then(data => {
@@ -126,46 +129,30 @@ export class AppHome {
       })
       .catch(error => {
         console.log(error);
-
-        // this.error = error.message;
+        this.error = error.message;
       });
-
-    return false;
   }
 
-  socialAuth() {
+  socialAuth(type: string) {
+    this.error = null;
     this.auth
-      .withSocial(this.viewType)
+      .withSocial(type)
       .then(data => {
         console.log(data);
       })
       .catch(error => {
-        console.log(error);
+        this.error = error.message;
       });
   }
 
-  loginType(event, viewType) {
-    event.preventDefault();
-    this.viewType = viewType;
-  }
-
-  loginUser(event) {
-    event.preventDefault();
-    if (this.viewType === 'email') {
-      this.emailAuth();
-    } else if (this.viewType === 'phone') {
-      this.phoneAuth();
-    } else {
-      this.socialAuth();
-    }
-  }
-
   slideNext() {
+    this.error = null;
     this.sliderEl.slideNext();
     this.setStepTitle();
   }
 
   slidePrev() {
+    this.error = null;
     this.sliderEl.slidePrev();
     this.setStepTitle();
   }
@@ -181,6 +168,12 @@ export class AppHome {
             </migrant-text-to-speech>
           </ion-card-title>
           <ion-card-content>
+            {this.error ? (
+              <p class="error-message">
+                <ion-icon name="alert" />
+                {this.error}
+              </p>
+            ) : null}
             <ion-slides options={this.sliderOptions}>
               <ion-slide id="language">
                 <ion-grid>
@@ -243,19 +236,18 @@ export class AppHome {
                           class="facebook"
                           expand="block"
                           color="light"
+                          onClick={() => this.socialAuth('facebook')}
                         >
-                          <ion-icon
-                            slot="start"
-                            name="logo-facebook"
-                            onClick={event => this.loginType(event, 'facebook')}
-                          />
+                          <ion-icon slot="start" name="logo-facebook" />
                           Facebook
                         </ion-button>
-                        <ion-button class="google" expand="block" color="light">
-                          <ion-icon
-                            name="logo-google"
-                            onClick={event => this.loginType(event, 'google')}
-                          />
+                        <ion-button
+                          class="google"
+                          expand="block"
+                          color="light"
+                          onClick={() => this.socialAuth('google')}
+                        >
+                          <ion-icon name="logo-google" slot="start" />
                           Google
                         </ion-button>
                       </div>
@@ -267,7 +259,7 @@ export class AppHome {
                       {this.onboardingText.back}
                     </ion-button>
                     <ion-button
-                      onClick={() => this.slideNext()}
+                      onClick={() => this.emailAuth()}
                       color="secondary"
                     >
                       {this.onboardingText.continue}
