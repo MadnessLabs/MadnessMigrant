@@ -84,7 +84,7 @@ export class AppProfile {
 
   render() {
     return [
-      <app-header />,
+      <app-header language={this.language.currentLanguage} />,
       <ion-content>
         <ion-button expand="block" href="/dashboard">
           <ion-icon name="people" slot="start" />

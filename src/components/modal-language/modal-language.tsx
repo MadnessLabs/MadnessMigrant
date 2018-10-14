@@ -2,19 +2,18 @@ import { Component, Prop } from '@stencil/core';
 import { LanguageService } from '../../services/language';
 
 @Component({
-  tag: 'app-home',
-  styleUrl: 'app-home.scss'
+  tag: 'modal-language',
+  styleUrl: 'modal-language.css'
 })
-export class AppHome {
+export class ModalLanguage {
   @Prop()
   language: LanguageService;
 
   render() {
-    return [
-      <app-header language={this.language.currentLanguage} />,
+    return (
       <ion-content>
-        <p>Hello AppHome!</p>
+        <migrant-language language={this.language} />
       </ion-content>
-    ];
+    );
   }
 }

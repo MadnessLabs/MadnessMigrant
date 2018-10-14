@@ -21,13 +21,16 @@ export class AppRoot {
     language: LanguageService;
   };
   language: LanguageService;
+  modal: HTMLIonModalElement;
   routerEl: HTMLIonRouterElement;
 
   @Element()
-  rootEl: HTMLElement;
+  rootEl: HTMLAppRootElement;
 
   @Prop({ connect: 'ion-toast-controller' })
   toastCtrl: HTMLIonToastControllerElement;
+  @Prop({ connect: 'ion-modal-controller' })
+  modalCtrl: HTMLIonModalControllerElement;
 
   @Listen('window:swUpdate')
   async onSWUpdate() {
@@ -39,6 +42,26 @@ export class AppRoot {
     await toast.present();
     await toast.onWillDismiss();
     window.location.reload();
+  }
+
+  @Listen('migrantOpenLanguageModal')
+  async onOpenLanguageModal() {
+    this.modal = await this.modalCtrl.create({
+      component: 'modal-language',
+      componentProps: {
+        language: this.language
+      },
+      backdropDismiss: true
+    });
+    this.modal.present();
+  }
+
+  @Listen('body:migrantSetLanguage')
+  async onCloseLanguageModal() {
+    if (this.modal) {
+      this.modal.dismiss();
+      window.location.reload();
+    }
   }
 
   async componentWillLoad() {

@@ -45,6 +45,10 @@ app-root {
     padding-right: 5px;
   }
 
+  ion-modal ion-content {
+    --background: #ffffff;
+  }
+
   @media only screen and (max-width: 500px) {
     ion-card ion-card-title {
       font-size: 18px;

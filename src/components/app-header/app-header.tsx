@@ -1,14 +1,21 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
   tag: 'app-header',
   styleUrl: 'app-header.scss'
 })
 export class AppHeader {
+  @Event()
+  migrantOpenLanguageModal: EventEmitter;
+
   @Prop()
   titleText = 'Madness Migrant';
   @Prop()
   language: string = 'en';
+
+  openLanguageModal(event) {
+    this.migrantOpenLanguageModal.emit({ event });
+  }
 
   render() {
     return (
@@ -23,6 +30,7 @@ export class AppHeader {
               src={`/assets/flags/${this.language}.png`}
               height="35"
               width="35"
+              onClick={event => this.openLanguageModal(event)}
             />
           </ion-buttons>
         </ion-toolbar>

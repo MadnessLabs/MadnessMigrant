@@ -158,7 +158,7 @@ export class AppLogin {
 
   render() {
     return [
-      <app-header />,
+      <app-header language={this.language.currentLanguage} />,
       <ion-content padding>
         <ion-card>
           <ion-card-title>
@@ -175,7 +175,7 @@ export class AppLogin {
             ) : null}
             <ion-slides options={this.sliderOptions}>
               <ion-slide id="language">
-                <div id="language-wrapper">
+                <div class="language-wrapper">
                   <migrant-language language={this.language} />
                   <div class="onboarding-controls">
                     <ion-button
