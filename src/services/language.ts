@@ -46,4 +46,23 @@ export class LanguageService {
 
     return true;
   }
+
+  /**
+   * Get a list of available languages
+   */
+  async list() {
+    const languages = await this.db.collection(this.collectionName).get();
+    const data: {
+      name: string;
+      code: string;
+    }[] = [];
+    for (const language of languages.docs) {
+      data.push({
+        name: language.data().name,
+        code: language.id
+      });
+    }
+
+    return data;
+  }
 }

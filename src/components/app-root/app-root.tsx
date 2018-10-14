@@ -1,4 +1,4 @@
-import { Component, Prop, Listen } from '@stencil/core';
+import { Component, Element, Prop, Listen } from '@stencil/core';
 
 import { AuthService } from '../../services/auth';
 import { ConfigService } from '../../services/config';
@@ -22,6 +22,9 @@ export class AppRoot {
   };
   language: LanguageService;
 
+  @Element()
+  rootEl: HTMLElement;
+
   @Prop({ connect: 'ion-toast-controller' })
   toastCtrl: HTMLIonToastControllerElement;
 
@@ -44,7 +47,6 @@ export class AppRoot {
     this.db.settings({
       timestampsInSnapshots: true
     });
-    console.log(this.getParameterByName('lang'));
     this.language = new LanguageService(
       this.db,
       this.getParameterByName('lang')
@@ -85,8 +87,11 @@ export class AppRoot {
             component="app-dashboard"
             componentProps={this.defaultProps}
           />          
+            url="/profile"
+            component="app-profile"
+            componentProps={this.defaultProps}
+          />
         </ion-router>
-        
         <ion-nav />
       </ion-app>
     );
