@@ -52,8 +52,11 @@ export class AppHome {
   onboardingText: {
     back?: string;
     continue?: string;
+    placeholderEmail?: string;
     setLanguage?: string;
   } = {};
+  @State()
+  stepTitle: string;
 
   async componentDidLoad() {
     this.sliderEl = this.appHomeEl.querySelector('ion-slides');
@@ -70,18 +73,26 @@ export class AppHome {
       },
       handleCodeInApp: true
     };
-    this.getVerbiage();
+    await this.getVerbiage();
     this.auth.createCaptcha(this.appHomeEl.querySelector('#recaptcha'));
     this.availableLanguages = await this.language.list();
   }
 
   async getVerbiage() {
     this.onboardingText = await this.language.get('onboarding');
+    this.setStepTitle();
   }
 
   async setLanguage(language: string) {
     await this.language.setLanguage(language);
     await this.getVerbiage();
+  }
+
+  async setStepTitle() {
+    const currentStep = await this.sliderEl.getActiveIndex();
+    if (currentStep === 0) {
+      this.stepTitle = this.onboardingText.setLanguage;
+    }
   }
 
   phoneAuth() {
@@ -159,53 +170,55 @@ export class AppHome {
       <app-header />,
       <ion-content padding>
         <ion-card>
-          <ion-slides options={this.sliderOptions}>
-            <ion-slide id="language">
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <migrant-text-to-speech>
-                      <h1>{this.onboardingText.setLanguage}</h1>
-                    </migrant-text-to-speech>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  {this.availableLanguages.map(language => (
-                    <ion-col onClick={() => this.setLanguage(language.code)}>
-                      <div
-                        class={
-                          this.language.currentLanguage === language.code
-                            ? 'flag active'
-                            : 'flag'
-                        }
-                        style={{
-                          backgroundImage: `url('./assets/flags/${
-                            language.code
-                          }.png')`
-                        }}
+          <ion-card-title>
+            <migrant-text-to-speech voice={this.language.currentVoice}>
+              <h1>{this.stepTitle}</h1>
+            </migrant-text-to-speech>
+          </ion-card-title>
+          <ion-card-content>
+            <ion-slides options={this.sliderOptions}>
+              <ion-slide id="language">
+                <ion-grid>
+                  <ion-row>
+                    {this.availableLanguages.map(language => (
+                      <ion-col onClick={() => this.setLanguage(language.code)}>
+                        <div
+                          class={
+                            this.language.currentLanguage === language.code
+                              ? 'flag active'
+                              : 'flag'
+                          }
+                          style={{
+                            backgroundImage: `url('./assets/flags/${
+                              language.code
+                            }.png')`
+                          }}
+                        >
+                          {this.language.currentLanguage === language.code ? (
+                            <ion-icon name="checkmark-circle" />
+                          ) : null}
+                        </div>
+                        <b>{language.name}</b>
+                      </ion-col>
+                    ))}
+                  </ion-row>
+                  <ion-row class="onboarding-controls">
+                    <ion-col>
+                      <ion-button
+                        onClick={() => this.slideNext()}
+                        color="secondary"
                       >
-                        {this.language.currentLanguage === language.code ? (
-                          <ion-icon name="checkmark-circle" />
-                        ) : null}
-                      </div>
-                      <b>{language.name}</b>
+                        {this.onboardingText.continue}
+                      </ion-button>
                     </ion-col>
-                  ))}
-                </ion-row>
-                <ion-row class="onboarding-controls">
-                  <ion-col>
-                    <ion-button onClick={() => this.slideNext()}>
-                      {this.onboardingText.continue}
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-slide>
-            <ion-slide>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    {/* <div class="phone">
+                  </ion-row>
+                </ion-grid>
+              </ion-slide>
+              <ion-slide>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      {/* <div class="phone">
                       <ion-item id="phone-login">
                         <ion-icon
                           name="phone-portrait"
@@ -215,52 +228,56 @@ export class AppHome {
                         <ion-input placeholder="Text Input" name="phone" />
                       </ion-item>
                     </div> */}
-                    <div class="email">
-                      <ion-item id="email-login">
-                        <ion-label position="stacked">Email</ion-label>
-                        <ion-input placeholder="Text Input" name="email" />
-                      </ion-item>
-                    </div>
-                    <div class="facebook">
-                      <ion-icon
-                        name="logo-facebook"
-                        onClick={event => this.loginType(event, 'facebook')}
-                      />
-                    </div>
-                    <div class="google">
-                      <ion-icon
-                        name="logo-googleplus"
-                        onClick={event => this.loginType(event, 'google')}
-                      />
-                    </div>
-                    {this.viewType ? (
-                      <ion-button
-                        type="submit"
-                        id="submit-button"
-                        onClick={event => this.loginUser(event)}
-                      >
-                        Submit
+                      <div class="email">
+                        <ion-item id="email-login">
+                          <ion-label position="stacked">Email</ion-label>
+                          <ion-input
+                            placeholder={this.onboardingText.placeholderEmail}
+                            name="email"
+                          />
+                        </ion-item>
+                      </div>
+                      <div class="facebook">
+                        <ion-icon
+                          name="logo-facebook"
+                          onClick={event => this.loginType(event, 'facebook')}
+                        />
+                      </div>
+                      <div class="google">
+                        <ion-icon
+                          name="logo-googleplus"
+                          onClick={event => this.loginType(event, 'google')}
+                        />
+                      </div>
+                      {this.viewType ? (
+                        <ion-button
+                          type="submit"
+                          id="submit-button"
+                          onClick={event => this.loginUser(event)}
+                        >
+                          Submit
+                        </ion-button>
+                      ) : null}
+                      <button id="recaptcha" />
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="onboarding-controls">
+                    <ion-col>
+                      <ion-button onClick={() => this.slidePrev()}>
+                        {this.onboardingText.back}
                       </ion-button>
-                    ) : null}
-                    <button id="recaptcha" />
-                  </ion-col>
-                </ion-row>
-                <ion-row class="onboarding-controls">
-                  <ion-col>
-                    <ion-button
-                      onClick={() => this.slidePrev()}
-                      color="secondary"
-                    >
-                      {this.onboardingText.back}
-                    </ion-button>
-                    <ion-button onClick={() => this.slideNext()}>
-                      {this.onboardingText.continue}
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-slide>
-          </ion-slides>
+                      <ion-button
+                        onClick={() => this.slideNext()}
+                        color="secondary"
+                      >
+                        {this.onboardingText.continue}
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-slide>
+            </ion-slides>
+          </ion-card-content>
         </ion-card>
       </ion-content>
     ];

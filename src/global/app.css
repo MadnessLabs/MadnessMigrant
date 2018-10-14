@@ -102,6 +102,20 @@ ion-card {
   --background: rgba(255, 255, 255, 0.9) !important;
 }
 
+ion-card ion-card-title {
+  background-color: var(--ion-color-primary);
+  color: #ffffff;
+  padding: 10px 15px;
+}
+
+ion-card ion-card-title h1 {
+  margin: 0;
+}
+
+ion-card ion-card-title migrant-text-to-speech ion-button {
+  top: -6px;
+}
+
 ion-nav {
   background-image: url('/assets/images/sunset.jpg');
   background-size: cover;

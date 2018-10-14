@@ -1,7 +1,7 @@
-.text-wrapper {
+migrant-text-to-speech .text-wrapper {
   position: relative;
 }
-ion-button {
+migrant-text-to-speech ion-button {
   position: absolute;
   top: 0;
   right: 0;
