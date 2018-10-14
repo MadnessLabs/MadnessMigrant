@@ -1,6 +1,7 @@
 app-home {
   ion-card {
-    margin: 100px auto;
+    margin: 0px auto !important;
     padding: 0 30px;
+    max-width: 1024px;
   }
 }
