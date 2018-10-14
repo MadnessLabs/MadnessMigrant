@@ -138,3 +138,6 @@ ion-grid {
 .error-message ion-icon {
   padding-right: 5px;
 }
+ion-toolbar img {
+  margin-right: .5rem;
+}

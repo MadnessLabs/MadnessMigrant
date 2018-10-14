@@ -4,10 +4,35 @@ app-home {
     padding: 0 30px;
     max-width: 1024px;
   }
-
-  @media (max-width: 1024px) {
-    ion-card {
-      margin: 0 20px;
+  .header-content {
+    text-align: center;
+    padding-bottom: 2rem;
+    h1 {
+      color: var(--ion-color-primary-contrast);
+      text-align: center;
+      font-weight: bold;
     }
+    .header-p {
+      color: var(--ion-color-primary-contrast);
+      font-weight: bold;
+    }
+    ion-button {
+      margin: 0 1rem;
+    }
+  }
+
+  ion-card > p {
+    padding-top: 0.5rem;
+  }
+
+  p {
+    line-height: 1.35rem;
+  }
+  ion-title {
+    padding-left: 0;
+  }
+
+  ion-card {
+    --background: rgba(255, 255, 255, 0.6) !important;
   }
 }
