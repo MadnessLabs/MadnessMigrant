@@ -52,6 +52,7 @@ export class AppHome {
   onboardingText: {
     back?: string;
     continue?: string;
+    createAccount?: string;
     placeholderEmail?: string;
     setLanguage?: string;
   } = {};
@@ -92,6 +93,8 @@ export class AppHome {
     const currentStep = await this.sliderEl.getActiveIndex();
     if (currentStep === 0) {
       this.stepTitle = this.onboardingText.setLanguage;
+    } else if (currentStep === 1) {
+      this.stepTitle = this.onboardingText.createAccount;
     }
   }
 
@@ -159,10 +162,12 @@ export class AppHome {
 
   slideNext() {
     this.sliderEl.slideNext();
+    this.setStepTitle();
   }
 
   slidePrev() {
     this.sliderEl.slidePrev();
+    this.setStepTitle();
   }
 
   render() {
@@ -202,16 +207,14 @@ export class AppHome {
                       </ion-col>
                     ))}
                   </ion-row>
-                  <ion-row class="onboarding-controls">
-                    <ion-col>
-                      <ion-button
-                        onClick={() => this.slideNext()}
-                        color="secondary"
-                      >
-                        {this.onboardingText.continue}
-                      </ion-button>
-                    </ion-col>
-                  </ion-row>
+                  <div class="onboarding-controls">
+                    <ion-button
+                      onClick={() => this.slideNext()}
+                      color="secondary"
+                    >
+                      {this.onboardingText.continue}
+                    </ion-button>
+                  </div>
                 </ion-grid>
               </ion-slide>
               <ion-slide>
@@ -228,52 +231,48 @@ export class AppHome {
                         <ion-input placeholder="Text Input" name="phone" />
                       </ion-item>
                     </div> */}
-                      <div class="email">
-                        <ion-item id="email-login">
-                          <ion-label position="stacked">Email</ion-label>
-                          <ion-input
-                            placeholder={this.onboardingText.placeholderEmail}
-                            name="email"
-                          />
-                        </ion-item>
-                      </div>
-                      <div class="facebook">
-                        <ion-icon
-                          name="logo-facebook"
-                          onClick={event => this.loginType(event, 'facebook')}
+                      <ion-item id="email-login">
+                        <ion-label position="stacked">Email</ion-label>
+                        <ion-input
+                          placeholder={this.onboardingText.placeholderEmail}
+                          name="email"
                         />
-                      </div>
-                      <div class="google">
-                        <ion-icon
-                          name="logo-googleplus"
-                          onClick={event => this.loginType(event, 'google')}
-                        />
-                      </div>
-                      {this.viewType ? (
+                      </ion-item>
+                      <div id="social-logins">
                         <ion-button
-                          type="submit"
-                          id="submit-button"
-                          onClick={event => this.loginUser(event)}
+                          class="facebook"
+                          expand="block"
+                          color="light"
                         >
-                          Submit
+                          <ion-icon
+                            slot="start"
+                            name="logo-facebook"
+                            onClick={event => this.loginType(event, 'facebook')}
+                          />
+                          Facebook
                         </ion-button>
-                      ) : null}
+                        <ion-button class="google" expand="block" color="light">
+                          <ion-icon
+                            name="logo-google"
+                            onClick={event => this.loginType(event, 'google')}
+                          />
+                          Google
+                        </ion-button>
+                      </div>
                       <button id="recaptcha" />
                     </ion-col>
                   </ion-row>
-                  <ion-row class="onboarding-controls">
-                    <ion-col>
-                      <ion-button onClick={() => this.slidePrev()}>
-                        {this.onboardingText.back}
-                      </ion-button>
-                      <ion-button
-                        onClick={() => this.slideNext()}
-                        color="secondary"
-                      >
-                        {this.onboardingText.continue}
-                      </ion-button>
-                    </ion-col>
-                  </ion-row>
+                  <div class="onboarding-controls">
+                    <ion-button onClick={() => this.slidePrev()} color="dark">
+                      {this.onboardingText.back}
+                    </ion-button>
+                    <ion-button
+                      onClick={() => this.slideNext()}
+                      color="secondary"
+                    >
+                      {this.onboardingText.continue}
+                    </ion-button>
+                  </div>
                 </ion-grid>
               </ion-slide>
             </ion-slides>
