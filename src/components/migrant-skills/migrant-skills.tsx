@@ -1,72 +1,96 @@
-import { Component, Event, Element, EventEmitter, Listen, State } from '@stencil/core';
-
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  Listen,
+  State
+} from '@stencil/core';
 
 @Component({
-	tag: 'migrant-skills',
-	styleUrl: 'migrant-skills.css'
+  tag: 'migrant-skills',
+  styleUrl: 'migrant-skills.css'
 })
-
 export class MigrantSkills {
+  @Element()
+  appHomeEl: HTMLMigrantSkillsElement;
 
-	@Element() appHomeEl: HTMLMigrantSkillsElement;	
+  @Event()
+  migrantSkillsEvent: EventEmitter;
 
-	@Event() migrantSkillsEvent: EventEmitter;
+  @State()
+  searchEl: any;
+  @State()
+  skills: any = [
+    'skillA',
+    'skillB',
+    'skillC',
+    'skillD',
+    'skillBee',
+    'skillOKAY'
+  ];
+  @State()
+  shownSkills: any;
+  @State()
+  selectedSkills: any = ['skillB'];
 
-	@State() searchEl: any;
-	@State() skills: any = ['skillA', 'skillB', 'skillC', 'skillD', 'skillBee', 'skillOKAY'];
-	@State() shownSkills: any;
-	@State() selectedSkills: any = ['skillB'];
+  componentWillLoad() {
+    this.shownSkills = this.skills;
+  }
 
-	componentWillLoad() {
-		this.shownSkills = this.skills;
-	}
+  componentDidLoad() {
+    this.searchEl = this.appHomeEl.getElementsByClassName('search-skills');
+  }
 
-	componentDidLoad() {
-		this.searchEl = this.appHomeEl.getElementsByClassName('search-skills');
-	}
+  addSelectedSkills(event, skill) {
+    event.preventDefault();
+    if (this.selectedSkills.indexOf(skill) === -1) {
+      this.selectedSkills = [...this.selectedSkills, skill];
+    } else {
+      this.selectedSkills.splice(this.selectedSkills.indexOf(skill), 1);
+      this.selectedSkills = [...this.selectedSkills];
+    }
+    this.sendSkills();
+  }
 
-	addSelectedSkills(event, skill) {
-		event.preventDefault();
-		if (this.selectedSkills.indexOf(skill) === -1)  {
-			this.selectedSkills = [...this.selectedSkills, skill]
-		} else {
-			this.selectedSkills.splice( this.selectedSkills.indexOf(skill), 1);
-			this.selectedSkills = [...this.selectedSkills];
-		}
-		this.sendSkills();
-	}
-	sendSkills() {
-        this.migrantSkillsEvent.emit({ data: this.selectedSkills });
-	}
-	@Listen('ionChange')
-	filterList() {
-		this.shownSkills = [];
-		this.skills.forEach(skill => {
-			if( skill.includes(this.searchEl[0].value) ) {
-				this.shownSkills = [...this.shownSkills, skill]
-			}
-			if (this.searchEl.length === 0 ) {
-				this.shownSkills = this.skills
-			}
-		});
-	}
+  sendSkills() {
+    this.migrantSkillsEvent.emit({ data: this.selectedSkills });
+  }
 
-	render() {
-		return (
-			<div class="skills">
-				<ion-searchbar class="search-skills" ></ion-searchbar>
+  @Listen('ionChange')
+  filterList() {
+    this.shownSkills = [];
+    this.skills.forEach(skill => {
+      if (skill.includes(this.searchEl[0].value)) {
+        this.shownSkills = [...this.shownSkills, skill];
+      }
+      if (this.searchEl.length === 0) {
+        this.shownSkills = this.skills;
+      }
+    });
+  }
 
-				<ion-list>
-					{
-						this.shownSkills.map( skill => 
-							<ion-item>
-								<ion-icon name={this.selectedSkills.indexOf(skill) != -1 ? "checkbox-outline" : "checkbox"} onClick={(event) => this.addSelectedSkills(event, skill)}></ion-icon>
-								<p>{skill}</p>
-							</ion-item>
-						)
-					}
-				</ion-list>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div class="skills">
+        <ion-searchbar class="search-skills" />
+
+        <ion-list>
+          {this.shownSkills.map(skill => (
+            <ion-item>
+              <ion-icon
+                name={
+                  this.selectedSkills.indexOf(skill) !== -1
+                    ? 'checkbox-outline'
+                    : 'checkbox'
+                }
+                onClick={event => this.addSelectedSkills(event, skill)}
+              />
+              <p>{skill}</p>
+            </ion-item>
+          ))}
+        </ion-list>
+      </div>
+    );
+  }
 }

@@ -1,5 +1,5 @@
-import { Component, Element, Prop } from '@stencil/core';
 import { Color } from '@ionic/core';
+import { Component, Element, Prop } from '@stencil/core';
 declare const responsiveVoice;
 
 @Component({

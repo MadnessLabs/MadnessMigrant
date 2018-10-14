@@ -1,8 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 export class AuthService {
-  public service: firebase.auth.Auth;
-  public session: any;
+  service: firebase.auth.Auth;
+  session: any;
 
   constructor(config?: any) {
     let firstRun = true;
@@ -46,13 +46,11 @@ export class AuthService {
   }
 
   createCaptcha(buttonEl: any) {
-    console.log('inrecaptcah');
-
-    (<any>window).RecaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+    (window as any).RecaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       buttonEl,
       {
         size: 'invisible',
-        callback: function() {
+        callback() {
           // Captcha Created
           console.log('wee');
           // if (callback && typeof callback === 'function') {
@@ -178,7 +176,7 @@ export class AuthService {
 
   googleNative(): Promise<any> {
     return new Promise((resolve, reject) => {
-      (<any>window).plugins.googleplus.login(
+      (window as any).plugins.googleplus.login(
         {
           webClientId:
             '491790079478-6ciehmvvrcb8erai5bso2ahk5bhih5nv.apps.googleusercontent.com',
@@ -211,7 +209,7 @@ export class AuthService {
     }
 
     return new Promise((resolve, reject) => {
-      if ((<any>window).cordova) {
+      if ((window as any).cordova) {
         if (network === 'google') {
           console.log('trying google native login');
           this.googleNative()

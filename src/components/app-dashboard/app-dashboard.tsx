@@ -16,19 +16,8 @@ export class AppDashboard {
     }
   ];
 
-  renderSkills(skills) {
-    console.log(skills);
-    return (
-      <div>
-        {skills.map(skill => (
-          <ion-badge>{skill}</ion-badge>
-        ))}
-      </div>
-    );
-  }
-
   render() {
-    //dashboard
+    // dashboard
     return [
       <app-header />,
       <ion-content padding>
@@ -38,7 +27,13 @@ export class AppDashboard {
               <img src={profile.avatar} />
             </ion-item>
             <ion-item>{profile.name}</ion-item>
-            <ion-item>{this.renderSkills(profile.matchedSkills)}</ion-item>
+            <ion-item>
+              <div>
+                {profile.matchedSkills.map(skill => (
+                  <ion-badge>{skill}</ion-badge>
+                ))}
+              </div>
+            </ion-item>
           </ion-list>
         ))}
       </ion-content>

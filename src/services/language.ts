@@ -33,7 +33,7 @@ export class LanguageService {
    * @param language The language document to grab
    */
   async getVoice(language?: string) {
-    return await this.get('voice', language ? language : this.currentLanguage);
+    return this.get('voice', language ? language : this.currentLanguage);
   }
 
   /**
