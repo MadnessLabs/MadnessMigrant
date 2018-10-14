@@ -51,7 +51,7 @@ export class AppLogin {
     code: string;
   }[] = [];
   @State()
-  onboardingText: {
+    onboardingText: {
     back?: string;
     continue?: string;
     createAccount?: string;
@@ -281,6 +281,7 @@ export class AppLogin {
                 </div>
               </ion-slide>
             </ion-slides>
+            <a href="/privacy" class="privacy">Privacy Policy</a>
           </ion-card-content>
         </ion-card>
       </ion-content>
