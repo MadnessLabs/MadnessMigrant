@@ -44,9 +44,12 @@ export class AppProfile {
     skillsTitle?: string;
     skillsSubtext?: string;
   } = {};
+  @State()
+  skills: any;
 
   async componentDidLoad() {
     this.profileText = await this.language.get('profile');
+    this.skills = await this.language.get('skills');
   }
 
   render() {
@@ -128,7 +131,10 @@ export class AppProfile {
             <p class="subtext">{this.profileText.skillsSubtext}</p>
           </migrant-text-to-speech>
           <ion-card-content>
-            <migrant-skills />
+            <migrant-skills
+              skills={this.skills}
+              voice={this.language.currentVoice}
+            />
           </ion-card-content>
         </ion-card>
       </ion-content>

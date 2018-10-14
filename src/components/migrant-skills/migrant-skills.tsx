@@ -21,11 +21,13 @@ export class MigrantSkills {
 
   @Prop()
   skills: any;
+  @Prop()
+  voice: string;
 
   @State()
   searchEl: any;
   @State()
-  selectedSkills: any = ['skillB'];
+  selectedSkills: any = [];
   @State()
   searchTerms: string;
 
@@ -43,6 +45,7 @@ export class MigrantSkills {
     }
     this.sendSkills();
   }
+
   sendSkills() {
     this.ionChange.emit({ data: this.selectedSkills });
   }
@@ -58,26 +61,38 @@ export class MigrantSkills {
         <ion-searchbar class="search-skills" />
         <ion-list>
           {this.skills
-            ? Object.keys(this.skills).map(skill => (
-                <ion-item
-                  class={
-                    this.selectedSkills.indexOf(skill) !== -1
-                      ? 'is-checked'
-                      : null
-                  }
-                  onClick={event => this.addSelectedSkills(event, skill)}
-                >
-                  <ion-icon
-                    slot="start"
-                    name={
-                      this.selectedSkills.indexOf(skill) !== -1
-                        ? 'checkbox'
-                        : 'checkbox-outline'
-                    }
-                  />
-                  <ion-label>{this.skills[skill]}</ion-label>
-                </ion-item>
-              ))
+            ? Object.keys(this.skills).map(
+                skill =>
+                  !this.searchTerms ||
+                  (this.searchTerms &&
+                    this.skills[skill]
+                      .toLowerCase()
+                      .includes(this.searchTerms.toLowerCase())) ? (
+                    <ion-item
+                      class={
+                        this.selectedSkills.indexOf(skill) !== -1
+                          ? 'is-checked'
+                          : null
+                      }
+                      onClick={event => this.addSelectedSkills(event, skill)}
+                    >
+                      <ion-icon
+                        slot="start"
+                        name={
+                          this.selectedSkills.indexOf(skill) !== -1
+                            ? 'checkbox'
+                            : 'checkbox-outline'
+                        }
+                      />
+
+                      <ion-label>{this.skills[skill]}</ion-label>
+                      <migrant-text-to-speech
+                        slot="end"
+                        message={this.skills[skill]}
+                      />
+                    </ion-item>
+                  ) : null
+              )
             : null}
         </ion-list>
       </div>

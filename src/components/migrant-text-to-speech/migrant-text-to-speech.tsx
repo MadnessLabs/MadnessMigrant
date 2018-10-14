@@ -14,9 +14,14 @@ export class MigrantTextToSpeech {
   voice = 'US English Male';
   @Prop()
   color: Color = 'secondary';
+  @Prop()
+  message: string;
 
   speak() {
-    responsiveVoice.speak(this.textToSpeechEl.textContent, this.voice);
+    responsiveVoice.speak(
+      this.message ? this.message : this.textToSpeechEl.textContent,
+      this.voice
+    );
   }
 
   render() {
