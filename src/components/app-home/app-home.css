@@ -1,0 +1,45 @@
+app-home .flag {
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+app-home #language ion-grid {
+  width: 100%;
+  display: block;
+}
+
+app-home #language ion-col:hover {
+  cursor: pointer;
+}
+
+app-home #language ion-col:hover .flag,
+.flag.active {
+  border: 2px solid var(--ion-color-success);
+}
+
+app-home .onboarding-controls ion-button {
+  float: right;
+}
+
+.flag.active ion-icon {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  height: 30px;
+  width: 30px;
+  color: var(--ion-color-success);
+  background-color: #fff;
+  border-radius: 100%;
+}
+
+app-home ion-card {
+  margin: 0 auto !important;
+  max-width: 500px;
+}

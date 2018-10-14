@@ -1,9 +1,9 @@
 {
-  "name": "@ionic/pwa-toolkit",
+  "name": "@madnesslabs/madnessmigrant",
   "private": true,
   "version": "0.0.1",
-  "author": "Ionic Team",
-  "description": "Ionic PWA Toolkit",
+  "author": "Madness Labs",
+  "description": "An app to help migrants integrate into their communities by connecting them with mentors and organizations to help them get established",
   "license": "MIT",
   "files": [
     "dist/"
