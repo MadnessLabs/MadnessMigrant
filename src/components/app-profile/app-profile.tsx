@@ -89,7 +89,7 @@ export class AppProfile {
 
   async logout() {
     await this.auth.logout();
-    window.location.reload();
+    window.location.href = '/';
   }
 
   render() {
