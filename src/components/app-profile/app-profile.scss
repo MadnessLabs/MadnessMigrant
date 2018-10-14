@@ -1,11 +1,26 @@
 app-profile {
-    .avatar {
-        height: 150px;
-        width: 150px;
-        border-radius: 50%;
-        border: solid 3px blue;
-        color: #eee;
-        margin: 15px auto;
+    ion-card {
+        padding-bottom: 15px;
+        .avatar {
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            border: solid 1px blue;
+            color: #eee;
+            margin: 15px auto;
+        }
+        ion-icon {
+            color: var (--ion-color-success);
+        }
+        .date {
+            margin-top: 18px;
+        }
+        migrant-skills {
+            ion-list {
+                margin: 0 10px !important;
+            }
+
+        }
     }
 }
 

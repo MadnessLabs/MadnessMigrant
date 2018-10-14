@@ -23,6 +23,7 @@ export class AppProfile {
 
         <ion-card>
           <div class="avatar">
+            <ion-icon name="create"></ion-icon>
           </div>
           <ion-grid>
             <ion-row>
@@ -30,7 +31,7 @@ export class AppProfile {
                 <ion-item>
                   <ion-label position="stacked">FIRST NAME</ion-label>
                   <ion-input placeholder="Bruce">
-
+                    <ion-icon name="create" slot="end"></ion-icon>
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -44,12 +45,22 @@ export class AppProfile {
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-item>
-                <ion-label position="stacked">Date</ion-label>
-                <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
-              </ion-item>
+              <ion-col size="6">
+                <ion-item class="date">
+                  <ion-label position="stacked">BIRTHDAY</ion-label>
+                  <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">BIOGRAPHY</ion-label>
+                  <ion-textarea>
+                  </ion-textarea>
+                </ion-item>
+              </ion-col>
             </ion-row>
           </ion-grid>
+          <migrant-skills></migrant-skills>
         </ion-card>   
 
       </ion-content>
