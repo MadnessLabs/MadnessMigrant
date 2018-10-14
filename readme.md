@@ -1,96 +1,69 @@
-# Ionic PWA Toolkit Beta
+## Inspiration 
 
-The PWA Toolkit is a starting point for building Progressive Web Apps using Ionic and Stencil.
-This combination of tools gives you the ability to build a fast, efficient PWA out of the box.
+Madness Migrant is people focused. It's important to us that immigrants feel a sense of trust and belonging when using the app as well as meeting their needs. We chose to focus on mentor-ship, our app provides an opportunity for existing volunteers to be more involved as well as providing immigrants with a one on one personable experience.
 
-Note: This project is **Beta** and uses a beta release of `@ionic/core`.
+## What it does
 
-For more info check out our [homepage](https://ionicframework.com/pwa/toolkit)!
+Madness Migrant connects mentors with men-tees of similar experiences, matching their skill sets and goals. These users are able to connect, share resources, chat, listen in their language, and get support from their fellow man. 
 
-## Features
+## How we built it
 
-* `@ionic/core` for the UI.
-* Stencil for the application logic and routing
-* Push Notifications setup
-* Unit Tests
-* Pre-rendering
-* Lazy-loading and code splitting
-* Intelligent Polyfills
-* Modern mode: ES6/ESM for new browser, ES5 for older
-* Service Worker, App manifest, iOS meta tags
-* Theming using CSS variables
+Our stack includes StencilJs, HTML5, CSS3/SASS, JS, Google Firebase; Web Components PWA.
 
-## Getting Started
+## Challenges we ran into
 
-To start building, clone this repo to a new directory:
+Madness Labs's biggest challenges were:
 
-```bash
-npm init stencil ionic-pwa
-```
+1. Fitting our best ideas into a very small MVP, we have so many more features we would have loved to share. 
 
+2. There were so many problems we wanted to solve, but because of the time constraints, we were unable to.
 
-## Production
+## Accomplishments that we're proud of
 
-To build for production, run:
+Our most proud accomplishments:
 
-```bash
-npm run build
-```
+1. Building an app in 24 hours with cutting edge technology.
 
-A production build includes:
+2. Our text-to-speech in 3 languages.
 
-* Minified code bundles
-* Generated Service workers
-* App manifest
+3. Keeping our app simple and to the point.
 
-## Hosting
+5. Making the app people-centric and user friendly 
 
-Apps should be hosted on through HTTPS, and if possible, through a provider that supports HTTP2.
-One provider that does support this is [Firebase Hosting](https://firebase.google.com/docs/hosting/).
+## What we learned
 
-## H2 Push
+Madness Labs learned:
 
-We recommend setting up HTTP2 Push on Firebase. H2 Push may sound complicated, but it's actually a simple concept. To learn about it, take a look at this [article](https://en.wikipedia.org/wiki/HTTP/2_Server_Push).
+1. About the many hardships immigrants face and how difficult the problems are to solve.
 
-To set this up for `my-app`:
+2. More team building skills.
 
-* Do a production build of the app: `npm run build`
-* Serve your WWW folder locally using a local http server and open in your browser.
-  * https://www.npmjs.com/package/http-server works pretty well for this. You can serve your www folder by running `http-server www`.
-* Open the DevTools and look at the network tab.
-  * Reload the page and you should see all of your files show up in the network tab. Excluding the `sw.js` file, these are the files you want to H2 push.
-* List these files in the link headers of your firebase.json file. For a syntax reference, review this [article](https://w3c.github.io/preload/#server-push-http-2)
+3. How quickly we can work under pressure.
 
-## Service Workers
+## What's next for MadnessMigrant
 
-Service workers are generated via the Stencil build tool. For more information on how they can be configured, see the [Service Worker docs](https://stenciljs.com/docs/service-workers).
+Madness Migrant is scalable, below is a list of features that could be additions:
 
-## Developing with a Service Worker
+1. Book in person meetings and video calls with a mentees' mentor.
 
-For most cases, you'll want to develop your app without generating a Service Worker. But if you'd like to test out Web Push Notifications or Background Sync, you'll need to have one generated. To generate a Service Worker during dev builds, we've added the npm script:
+2. Adding the availability of a mentor's schedule.
 
-```
-npm run start.sw
-```
+3. Seeing profiles of both the mentor and mentee on each others' dashboards.
 
-This will start a dev build and generate a Service Worker as well.
+4. Total time spent between mentors and mentees.
 
-## Unit Tests
+5. How the mentor's and mentee's relationships evolve.
 
-To run the unit tests once, run:
+6. Review system on mentors.
 
-```bash
-npm test
-```
+7. Allowing mentors to become sponsors.
 
-To run the unit tests and watch for file changes during development, run:
+8. Listing mentee sponsors on their dashboard.
 
-```bash
-npm run test.watch
-```
+9. Listing obtainable job listings/opportunities on the mentee's dashboard.
 
-## Testing your PWA's performance
+10. Creating an immigration path for foreigners with the ecosystem believed to be the most helpful for integrating them into the US.
 
-We recommend using https://www.webpagetest.org/easy with the `Run Lighthouse Audit` option turned on.
-This will give you an in depth look into your app's load performance on the average device connected to the average network.
-For more info on how to use webpagetest check out [this article](https://zoompf.com/blog/2015/07/the-seo-experts-guide-to-web-performance-using-webpagetest-2)
+11. Creating the steps to a unified database. 
+
+12. Exporting our components in organizations and services websites
