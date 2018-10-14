@@ -86,7 +86,8 @@ export class AppRoot {
             url="/dashboard"
             component="app-dashboard"
             componentProps={this.defaultProps}
-          />          
+          />
+          <ion-route
             url="/profile"
             component="app-profile"
             componentProps={this.defaultProps}
