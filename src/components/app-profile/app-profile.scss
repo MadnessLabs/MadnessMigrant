@@ -1,6 +1,10 @@
 app-profile {
   ion-card {
     padding-bottom: 15px;
+    migrant-photo-uploader {
+      height: 150px;
+      width: 150px;
+    }
     .back {
       color: var(--ion-color-success);
       height: 35px;
