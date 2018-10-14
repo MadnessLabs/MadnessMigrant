@@ -1,5 +1,8 @@
 migrant-skills {
   /* Component styles go here */
+  ion-item {
+    cursor: pointer;
+  }
   .is-checked ion-icon {
     color: var(--ion-color-success);
   }

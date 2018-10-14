@@ -72,7 +72,6 @@ export class MigrantSkills {
     return (
       <div class="skills">
         <ion-searchbar class="search-skills" />
-
         <ion-list>
           {this.shownSkills.map(skill => (
             <ion-item
@@ -82,13 +81,14 @@ export class MigrantSkills {
               onClick={event => this.addSelectedSkills(event, skill)}
             >
               <ion-icon
+                slot="start"
                 name={
                   this.selectedSkills.indexOf(skill) !== -1
                     ? 'checkbox'
                     : 'checkbox-outline'
                 }
               />
-              <p>{skill}</p>
+              <ion-label>{skill}</ion-label>
             </ion-item>
           ))}
         </ion-list>
