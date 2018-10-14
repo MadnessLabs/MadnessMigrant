@@ -49,6 +49,9 @@ export class AppHome {
           <h2>{this.home.mainHeadlineTwo}</h2>
           <p>{this.home.mainParagraphThree}</p>
         </ion-card>
+        <ion-button fill="clear" href="/privacy">
+          Privacy Policy
+        </ion-button>
       </ion-content>
     ];
   }
