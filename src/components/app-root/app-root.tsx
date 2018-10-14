@@ -60,7 +60,8 @@ export class AppRoot {
     };
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
+    await this.auth.onEmailLink();
     this.auth.onAuthChanged(async (session: firebase.User) => {
       if (session) {
         console.log(session);

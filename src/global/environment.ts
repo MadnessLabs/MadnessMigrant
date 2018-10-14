@@ -1,7 +1,7 @@
 export default {
   app: {
-    url: 'https://madnessmigrant.firebaseapp.com',
-    apiUrl: 'https://madnessmigrant.firebaseapp.com/api'
+    url: 'http://localhost:3333',
+    apiUrl: 'http://localhost:5000/madnessmigrant/us-central1'
   },
   firebase: {
     apiKey: "AIzaSyCp3gb7o9ovols8lVDBQq2IgADZPpLxzbc",
@@ -12,3 +12,4 @@ export default {
     messagingSenderId: "540849659656"
   }
 };
+  
