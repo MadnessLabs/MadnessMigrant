@@ -11,7 +11,7 @@ export class MigrantTextToSpeech {
   textToSpeechEl: HTMLElement;
 
   @Prop()
-  voice = 'UK English Male';
+  voice = 'US English Male';
 
   speak() {
     responsiveVoice.speak(this.textToSpeechEl.textContent, this.voice);

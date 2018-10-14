@@ -5,36 +5,26 @@ import { Component, Prop, State } from '@stencil/core';
   styleUrl: 'app-profile.css'
 })
 export class AppProfile {
-  @State() state = false;
-  @Prop() name: string;
+  @State()
+  state = false;
+  @Prop()
+  name: string;
 
   render() {
     return [
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/" />
-          </ion-buttons>
-          <ion-title>Profile: {this.name}</ion-title>
-        </ion-toolbar>
-      </ion-header>,
-
+      <app-header />,
       <ion-content padding>
-        <div class="avatar">
-        </div>
+        <div class="avatar" />
         <ion-grid>
           <ion-row>
             <ion-col>
               <ion-item>
                 <ion-label>FULL NAME</ion-label>
-                <ion-input placeholder="Bruce Wayne">
-
-                </ion-input>
+                <ion-input placeholder="Bruce Wayne" />
               </ion-item>
             </ion-col>
           </ion-row>
         </ion-grid>
-        
       </ion-content>
     ];
   }

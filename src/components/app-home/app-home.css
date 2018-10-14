@@ -24,7 +24,19 @@ app-home #language ion-col:hover .flag,
   border: 2px solid var(--ion-color-success);
 }
 
-app-home .onboarding-controls ion-button {
+app-home button {
+  height: 1px;
+  width: 1px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+app-home .onboarding-controls ion-button:first-of-type {
+  float: left;
+}
+
+app-home .onboarding-controls ion-button:last-of-type {
   float: right;
 }
 

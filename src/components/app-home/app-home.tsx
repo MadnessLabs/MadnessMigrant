@@ -50,6 +50,7 @@ export class AppHome {
   }[] = [];
   @State()
   onboardingText: {
+    back?: string;
     continue?: string;
     setLanguage?: string;
   } = {};
@@ -72,7 +73,6 @@ export class AppHome {
     this.getVerbiage();
     this.auth.createCaptcha(this.appHomeEl.querySelector('#recaptcha'));
     this.availableLanguages = await this.language.list();
-    console.log(this.availableLanguages);
   }
 
   async getVerbiage() {
@@ -156,29 +156,8 @@ export class AppHome {
 
   render() {
     return [
-      <ion-header>
-        <ion-toolbar color="secondary">
-          <ion-buttons slot="start">
-            <img src="/assets/icon/icon.png" height="35" width="35" />
-          </ion-buttons>
-          <ion-title>Madness Migrant</ion-title>
-        </ion-toolbar>
-      </ion-header>,
+      <app-header />,
       <ion-content padding>
-        {/* <migrant-text-to-speech voice={this.language.currentVoice}>
-          <p>{this.introText}</p>
-        </migrant-text-to-speech> 
-          <ion-button
-            expand="block"
-            onClick={() =>
-              this.setLanguage(
-                this.language.currentLanguage === 'es' ? 'en' : 'es'
-              )
-            }
-          >
-            Set to{' '}
-            {this.language.currentLanguage === 'en' ? 'Spanish' : 'English'}
-          </ion-button>*/}
         <ion-card>
           <ion-slides options={this.sliderOptions}>
             <ion-slide id="language">
@@ -237,12 +216,8 @@ export class AppHome {
                       </ion-item>
                     </div> */}
                     <div class="email">
-                      <ion-icon
-                        name="mail"
-                        onClick={event => this.loginType(event, 'email')}
-                      />
                       <ion-item id="email-login">
-                        <ion-label color="primary">Email</ion-label>
+                        <ion-label position="stacked">Email</ion-label>
                         <ion-input placeholder="Text Input" name="email" />
                       </ion-item>
                     </div>
@@ -272,8 +247,11 @@ export class AppHome {
                 </ion-row>
                 <ion-row class="onboarding-controls">
                   <ion-col>
-                    <ion-button onClick={() => this.slideNext()}>
-                      {this.onboardingText.continue}
+                    <ion-button
+                      onClick={() => this.slidePrev()}
+                      color="secondary"
+                    >
+                      {this.onboardingText.back}
                     </ion-button>
                     <ion-button onClick={() => this.slideNext()}>
                       {this.onboardingText.continue}
