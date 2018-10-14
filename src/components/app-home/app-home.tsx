@@ -55,6 +55,8 @@ export class AppHome {
     back?: string;
     continue?: string;
     createAccount?: string;
+    emailSentTitle?: string;
+    emailSentSubtext?: string;
     placeholderEmail?: string;
     setLanguage?: string;
   } = {};
@@ -97,6 +99,8 @@ export class AppHome {
       this.stepTitle = this.onboardingText.setLanguage;
     } else if (currentStep === 1) {
       this.stepTitle = this.onboardingText.createAccount;
+    } else if (currentStep === 2) {
+      this.stepTitle = this.onboardingText.emailSentTitle;
     }
   }
 
@@ -126,6 +130,7 @@ export class AppHome {
       .withEmailLink(this.emailAddress, this.actionOptions)
       .then(data => {
         console.log(data);
+        this.slideNext();
       })
       .catch(error => {
         console.log(error);
@@ -266,6 +271,14 @@ export class AppHome {
                     </ion-button>
                   </div>
                 </ion-grid>
+              </ion-slide>
+              <ion-slide id="email-sent">
+                <div>
+                  <div class="icon-wrapper">
+                    <ion-icon name="mail" color="medium" />
+                  </div>
+                  <h2>{this.onboardingText.emailSentSubtext}</h2>
+                </div>
               </ion-slide>
             </ion-slides>
           </ion-card-content>

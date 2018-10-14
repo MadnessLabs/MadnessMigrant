@@ -71,3 +71,25 @@ app-home #social-logins .google ion-icon {
 app-home #social-logins .facebook ion-icon {
   color: #3b5999;
 }
+
+app-home #email-sent .icon-wrapper {
+  display: block;
+  width: 100%;
+  margin: 0 auto !important;
+  float: left;
+}
+
+app-home #email-sent ion-icon {
+  height: 150px;
+  width: 150px;
+  margin: 0 auto !important;
+}
+
+app-home #email-sent h2 {
+  color: var(--ion-color-dark);
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  float: left;
+}
