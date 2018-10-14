@@ -101,6 +101,10 @@ ion-content {
 ion-card {
   --background: rgba(255, 255, 255, 0.9) !important;
 }
+ion-list {
+  --background: none;
+  background: none !important;
+}
 
 ion-nav {
   background-image: url('/assets/images/sunset.jpg');
