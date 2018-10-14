@@ -41,6 +41,8 @@ export class AppProfile {
   db: firebase.firestore.Firestore;
   @Prop()
   language: LanguageService;
+  @Prop()
+  user: any;
 
   @State()
   profile: {
@@ -92,7 +94,10 @@ export class AppProfile {
 
   render() {
     return [
-      <app-header language={this.language.currentLanguage} />,
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
       <ion-content>
         <ion-button expand="block" href="/dashboard">
           <ion-icon name="people" slot="start" />

@@ -19,6 +19,7 @@ export class AppRoot {
     config: ConfigService;
     db: firebase.firestore.Firestore;
     language: LanguageService;
+    user?: any;
   };
   language: LanguageService;
   modal: HTMLIonModalElement;
@@ -81,7 +82,8 @@ export class AppRoot {
       config: this.config,
       auth: this.auth,
       db: this.db,
-      language: this.language
+      language: this.language,
+      user: {}
     };
   }
 
@@ -143,6 +145,7 @@ export class AppRoot {
             });
           this.routerEl.push('profile');
         }
+        this.defaultProps = { ...this.defaultProps, user: userRef.data() };
         if (window.location.pathname === '/') {
           this.routerEl.push('dashboard');
         }

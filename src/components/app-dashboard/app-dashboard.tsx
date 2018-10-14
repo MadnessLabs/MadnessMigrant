@@ -9,6 +9,9 @@ export class AppDashboard {
   @Prop()
   language: LanguageService;
 
+  @Prop()
+  user: any;
+
   @State()
   profiles: any = [
     {
@@ -29,13 +32,16 @@ export class AppDashboard {
 
   render() {
     return [
-      <app-header language={this.language.currentLanguage} />,
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
       <ion-content>
         <ion-card class="dashboard">
           {this.profiles.map(profile => (
             <ion-list>
               <ion-item>
-                <img slot="start" src={profile.avatar} />
+                <img slot="start" src={profile.photo} />
                 <div>
                   <h2>{profile.name}</h2>
                   {

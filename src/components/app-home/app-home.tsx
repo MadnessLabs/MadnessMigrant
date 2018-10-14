@@ -8,6 +8,9 @@ import { LanguageService } from '../../services/language';
 export class AppHome {
   @Prop()
   language: LanguageService;
+  @Prop()
+  user: any;
+
   @State()
   home: {
     title?: string;
@@ -27,7 +30,10 @@ export class AppHome {
 
   render() {
     return [
-      <app-header language={this.language.currentLanguage} />,
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
       <ion-content>
         <div class="header-content">
           <h1>{this.home.title}</h1>

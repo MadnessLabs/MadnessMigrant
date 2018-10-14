@@ -8,6 +8,8 @@ import { LanguageService } from '../../services/language';
 export class AppPrivacy {
   @Prop()
   language: LanguageService;
+  @Prop()
+  user: any;
 
   @State()
   privacy: {
@@ -43,7 +45,10 @@ export class AppPrivacy {
 
   render() {
     return [
-      <app-header language={this.language.currentLanguage} />,
+      <app-header
+        language={this.language.currentLanguage}
+        photo={this.user.photo}
+      />,
       <ion-content padding>
         <migrant-text-to-speech voice={this.language.currentVoice}>
           <ion-card>
